@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Kit de Marketing — Elite Bot: Sartorial & Olfactory Intelligence</title>
+  <style>
+    :root {
+      --bg: #0a0b0e;
+      --surface: #121318;
+      --surface-card: #181920;
+      --border: #262832;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-sub: #64748b;
+      --accent-amber: #e59500;
+      --accent-terracotta: #c85a32;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 820px;
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+    }
+    .header-img-container {
+      width: 100%;
+      position: relative;
+      background-color: #000;
+      border-bottom: 1px solid var(--border);
+    }
+    .header-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    .content-body {
+      padding: 40px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      background: rgba(200, 90, 50, 0.15);
+      color: var(--accent-terracotta);
+      border: 1px solid rgba(200, 90, 50, 0.3);
+      margin-bottom: 20px;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--accent-terracotta);
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+    .lead-text {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-amber);
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+    .copy-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .copy-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .copy-channel {
+      font-size: 10px;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .copy-body {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .tag-list {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 12px;
+      color: var(--accent-amber);
+      background: rgba(229, 149, 0, 0.1);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .kpi-box {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+    .kpi-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .kpi-label {
+      font-size: 11px;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .cta-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: linear-gradient(135deg, var(--accent-terracotta), #9f3c1b);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 18px 24px;
+      border-radius: 8px;
+      margin-top: 36px;
+      transition: opacity 0.2s ease;
+    }
+    .cta-button:hover {
+      opacity: 0.92;
+    }
+    .footer-note {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-align: center;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-img-container">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZVZTkY9VKBA_hqC1tB3mwjDvI5VnO8oeajeyPwvcwZ_Hbg4LI_HKJY8hP2jwx3SsstCSbKbe-sgJwH3r0LFxRYelUDlaldZK4T2YwOE2Vi_EzxqssuoPky2RDOBf9bRq8fBqBFNgrprpip7iq0kF_DlB8aHX3tviOrOQ0_S8RoC39XOYzMTm9dx82y6hVy4Q7wv5S-1-AN69S28EJkx1XG2tzq1AEr9GFblFeNb9dYcKKNGPbxFan" alt="Email Header - Elite Bot Private Concierge Edition" class="header-img">
+    </div>
+
+    <div class="content-body">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Campanha de Lançamento &bull; Versão 2.4
+      </div>
+
+      <h1>O seu concierge invisível de perfumaria e alfaiataria masculina.</h1>
+      <p class="lead-text">
+        O Elite Bot sintetiza a elegância sartorial com telemetria algorítmica em tempo real. Monitore 14.280 SKUs em boutiques seletas como Farfetch, Sephora e Aramis, com análise preditiva de preços e notas olfativas.
+      </p>
+
+      <div class="kpi-grid">
+        <div class="kpi-box">
+          <div class="kpi-val">142ms</div>
+          <div class="kpi-label">Latência de Varredura</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-val">180 Dias</div>
+          <div class="kpi-label">Série Histórica</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-val">Score 9.4</div>
+          <div class="kpi-label">Índice Connoisseur</div>
+        </div>
+      </div>
+
+      <div class="section-title">Copy para Redes Sociais (Instagram &amp; LinkedIn)</div>
+      <div class="copy-card">
+        <div class="copy-title">
+          <span>Post Editorial de Lançamento</span>
+          <span class="copy-channel">Instagram / Feed</span>
+        </div>
+        <div class="copy-body">
+          O luxo contemporâneo não é apenas sobre o que você veste ou borrifa — é sobre timing, precisão e inteligência de mercado.<br><br>
+          Conheça o <strong>Elite Bot</strong>: seu assistente pessoal e cockpit de telemetria para calçados nobres de couro italiano e perfumaria de nicho internacional. Com varredura instantânea em 142ms, alertas preditivos de queda de preço e mapeamento de pirâmide olfativa estilo Fragrantica, você nunca mais compra fora da safra perfeita.
+          <div class="tag-list">
+            <span class="tag">#EliteBot</span>
+            <span class="tag">#SartorialIntelligence</span>
+            <span class="tag">#NicheFragrance</span>
+            <span class="tag">#SmartShopping</span>
+            <span class="tag">#Menswear</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">Copy para Campanhas de Mídia &amp; Banners (Display)</div>
+      <div class="copy-card">
+        <div class="copy-title">
+          <span>Headline &amp; Micro-Copy para Mídia Programática</span>
+          <span class="copy-channel">Banner Ads 16:9</span>
+        </div>
+        <div class="copy-body">
+          <strong>Título Principal:</strong> Telemetria de Preços para a Alta Perfumaria e Alfaiataria.<br>
+          <strong>Subtítulo:</strong> Monitore o Malbec Barrique, fragrâncias de nicho e calçados em couro legítimo direto no navegador com histórico de 180 dias.<br>
+          <strong>Call to Action:</strong> Acessar Concierge &rarr;
+        </div>
+      </div>
+
+      <div class="section-title">Copy para Newsletter &amp; Email Marketing Exclusivo</div>
+      <div class="copy-card">
+        <div class="copy-title">
+          <span>Convite Privado — Tier Connoisseur</span>
+          <span class="copy-channel">Email Marketing VIP</span>
+        </div>
+        <div class="copy-body">
+          <strong>Assunto:</strong> [Acesso VIP] Lançamento oficial: Seu radar privado de alfaiataria e perfumaria.<br><br>
+          Olá, Connoisseur.<br><br>
+          A volatilidade do mercado de moda e perfumaria de luxo exige mais do que intuição. Apresentamos a edição privada do <strong>Elite Bot</strong>.<br><br>
+          Instale a extensão em seu navegador e desbloqueie:<br>
+          &bull; <strong>Detecção Imediata de Menor Preço</strong> entre revendedores autorizados (Farfetch, O Boticário, Sephora).<br>
+          &bull; <strong>DNA Olfativo em Tempo Real</strong> com barras de acordes de âmbar, couro e notas amadeiradas.<br>
+          &bull; <strong>Alerta de Safra e Estoque</strong> em numerações raras e frascos de tiragem limitada.
+        </div>
+      </div>
+
+      <a href="#" class="cta-button">Ativar Extensão Elite Bot</a>
+      <div class="footer-note">Rede Verificada: Aramis &bull; O Boticário &bull; Sephora &bull; Farfetch &bull; Richards</div>
+    </div>
+  </div>
+</body>
+</html>

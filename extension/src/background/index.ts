@@ -1,5 +1,5 @@
 /**
- * Background Service Worker — Gerenciador de eventos e ícone de Badge da Extensão
+ * Background Service Worker — Gerenciador de eventos, Side Panel e Badge da Extensão
  */
 
 import { getProductBySlugOrName } from '../services/api.ts';
@@ -7,9 +7,22 @@ import { getProductBySlugOrName } from '../services/api.ts';
 if (typeof chrome !== 'undefined' && chrome.runtime) {
   chrome.runtime.onInstalled.addListener(() => {
     console.log('[Elite Bot Background] Service Worker Instalado com Sucesso!');
+
+    // Configura o Side Panel para abrir ao clicar no ação caso ativado
+    if (chrome.sidePanel && chrome.sidePanel.setPanelBehavior) {
+      chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true }).catch((err) => {
+        console.warn('Erro ao definir comportamento do SidePanel:', err);
+      });
+    }
   });
 
   chrome.runtime.onMessage.addListener((message, _sender, _sendResponse) => {
+    if (message.action === 'OPEN_EXPANDED_VIEW') {
+      const expandedUrl = chrome.runtime.getURL('index.html?mode=expanded');
+      chrome.tabs.create({ url: expandedUrl });
+      return;
+    }
+
     if (message.type === 'PRODUCT_DETECTED' && message.payload) {
       const { title } = message.payload;
 

@@ -6,6 +6,7 @@ import { OlfactoryAccords } from './components/OlfactoryAccords.tsx';
 import { SizeSelector } from './components/SizeSelector.tsx';
 import { StoreComparison } from './components/StoreComparison.tsx';
 import { PriceAlertForm } from './components/PriceAlertForm.tsx';
+import { PriceHistoryChart } from './components/PriceHistoryChart.tsx';
 import { searchProducts, ProductDetails, openExternalLink } from '../services/api.ts';
 import { getDetectedProduct } from '../services/storage.ts';
 import { Loader2, Search, ArrowRight, Tag, ExternalLink } from 'lucide-react';
@@ -98,44 +99,30 @@ export const Popup: React.FC = () => {
         onGoHome={handleGoHome}
       />
 
-      <main className="p-3.5 space-y-3 flex-1 overflow-y-auto custom-scrollbar">
-        {/* Barra de Busca Interativa */}
-        <form onSubmit={handleSearchSubmit} className="relative">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-            placeholder="Buscar perfume, tênis ou produto..."
-            className="w-full bg-[#1A1C22] border border-[#282B34] rounded-xl pl-9 pr-8 py-2 text-xs font-medium text-[#F3F4F6] placeholder-[#94A3B8] focus:outline-none focus:border-[#C85A32] transition-colors"
-          />
-          <Search className="w-4 h-4 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
-          {searchTerm && (
-            <button
-              type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded bg-[#C85A32] text-white hover:bg-[#b04d2a] transition-colors"
-              title="Pesquisar"
-            >
-              <ArrowRight className="w-3 h-3" />
-            </button>
-          )}
+      {/* Barra de Busca Minimalista */}
+      <div className="px-3.5 py-2.5 bg-[#14151a] border-b border-[#22242b] shrink-0">
+        <form onSubmit={handleSearchSubmit} className="flex gap-2">
+          <div className="flex-1 flex items-center bg-[#0e0f12] border border-[#27272a] rounded px-3 py-1.5 text-xs focus-within:border-[#c85a32]">
+            <Search className="w-3.5 h-3.5 text-[#71717a] mr-2 shrink-0" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Buscar acorde, marca ou sapato..."
+              className="bg-transparent border-none p-0 text-xs text-white placeholder-[#52525b] focus:outline-none w-full font-mono"
+            />
+          </div>
+          <button
+            type="submit"
+            className="px-3 py-1.5 rounded bg-[#c85a32] hover:bg-[#b54f2a] text-white text-xs font-mono font-medium transition-colors"
+          >
+            Buscar
+          </button>
         </form>
+      </div>
 
-        {/* Tags de Busca Rápida */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
-          {QUICK_TAGS.map((tag) => (
-            <button
-              key={tag.term}
-              onClick={() => handleExecuteSearch(tag.term)}
-              className="px-2.5 py-1 rounded-full bg-[#1A1C22] border border-[#282B34] hover:border-[#C85A32] text-[10px] font-medium text-[#94A3B8] hover:text-[#F3F4F6] whitespace-nowrap transition-colors cursor-pointer shrink-0"
-            >
-              {tag.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Conteúdo Principal Dinâmico */}
+      {/* Conteúdo Principal com Scroll Interno */}
+      <div className="flex-1 overflow-y-auto p-3.5 space-y-3.5 scrollbar-thin">
         {loading ? (
           <div className="py-20 flex flex-col items-center justify-center gap-2 text-[#94A3B8]">
             <Loader2 className="w-6 h-6 animate-spin text-[#C85A32]" />
@@ -156,6 +143,12 @@ export const Popup: React.FC = () => {
             ) : (
               <SizeSelector sizes={selectedProduct.available_sizes} />
             )}
+
+            <PriceHistoryChart
+              currentPrice={selectedProduct.offers[0]?.current_price || 149.90}
+              lowestPrice={139.90}
+              timeframe="180 Dias"
+            />
 
             <StoreComparison offers={selectedProduct.offers} />
 
@@ -227,7 +220,7 @@ export const Popup: React.FC = () => {
             )}
           </div>
         )}
-      </main>
+      </div>
 
       <footer className="px-4 py-2 bg-[#1A1C22] border-t border-[#282B34] flex items-center justify-between text-[10px] text-[#94A3B8] shrink-0">
         <span>Elite Bot v1.0 • Guia do Homem Barato</span>

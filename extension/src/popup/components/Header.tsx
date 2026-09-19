@@ -1,5 +1,4 @@
 import React from 'react';
-import { ShieldCheck, ChevronLeft } from 'lucide-react';
 
 interface HeaderProps {
   onBack?: () => void;
@@ -8,42 +7,54 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onBack, onGoHome, canGoBack }) => {
+  const handleOpenExpanded = () => {
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+      chrome.runtime.sendMessage({ action: 'OPEN_EXPANDED_VIEW' });
+    } else {
+      window.open(window.location.href + '?mode=expanded', '_blank');
+    }
+  };
+
   return (
-    <header className="flex items-center justify-between px-3.5 py-2.5 bg-[#1A1C22] border-b border-[#282B34] shrink-0">
-      <div className="flex items-center gap-2">
+    <header className="bg-[#101116] px-4 py-2.5 border-b border-[#22242b] flex items-center justify-between shrink-0">
+      <div className="flex items-center gap-2.5">
         {canGoBack && onBack ? (
           <button
             onClick={onBack}
-            className="p-1 rounded-lg bg-[#282B34] text-[#F3F4F6] hover:bg-[#383B44] transition-colors flex items-center justify-center cursor-pointer"
-            title="Voltar para busca"
+            className="p-1 rounded bg-[#1c1d24] text-[#a1a1aa] hover:text-white transition-colors"
+            title="Voltar"
           >
-            <ChevronLeft className="w-4 h-4 text-[#C85A32]" />
+            ←
           </button>
         ) : null}
 
         <div
           onClick={onGoHome}
-          className="flex items-center gap-2 cursor-pointer hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2.5 cursor-pointer hover:opacity-90 transition-opacity"
         >
-          <div className="w-7 h-7 rounded-lg bg-[#C85A32] flex items-center justify-center text-white font-bold font-sans text-xs tracking-wider shadow-sm">
-            EB
+          <div className="w-6 h-6 rounded bg-[#16181f] border border-[#c85a32]/60 flex items-center justify-center text-white">
+            <span className="font-mono text-xs font-bold text-[#c85a32]">E</span>
           </div>
-          <div>
-            <h1 className="text-xs font-bold uppercase tracking-widest text-[#F3F4F6] font-sans leading-none">
-              Elite Bot
-            </h1>
-            <p className="text-[9.5px] text-[#94A3B8] tracking-tight mt-0.5">
-              Guia do Homem Barato
-            </p>
+          <div className="flex flex-col">
+            <span className="text-xs font-bold tracking-[0.2em] text-white font-mono">
+              ELITE<span className="text-[#c85a32]">BOT</span>
+            </span>
+            <span className="text-[8.5px] font-mono tracking-widest text-[#71717a] -mt-0.5 uppercase">
+              Side Panel
+            </span>
           </div>
         </div>
       </div>
 
-      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316] border border-[#282B34]">
-        <ShieldCheck className="w-3.5 h-3.5 text-[#C85A32]" />
-        <span className="text-[9.5px] font-semibold text-[#E5E7EB] tracking-wide uppercase">
-          API Conectada
-        </span>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={handleOpenExpanded}
+          className="text-[10px] font-mono text-[#c85a32] hover:text-[#e4764d] transition-colors flex items-center gap-1 font-medium cursor-pointer"
+          title="Abrir análise completa em nova aba"
+        >
+          <span>Análise Completa</span>
+          <span>→</span>
+        </button>
       </div>
     </header>
   );

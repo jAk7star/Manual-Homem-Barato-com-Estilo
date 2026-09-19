@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<title>Elite Bot — Radar Connoisseur</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    @layer base {
+      html, body { 
+        margin: 0; 
+        padding: 0; 
+        background-color: #0A0B0E; 
+        color: #F5F6F8; 
+      }
+      ::-webkit-scrollbar { display: none; }
+    }
+</style>
+</head>
+<body class="bg-[#0A0B0E] text-[#F5F6F8] font-['Manrope',sans-serif] antialiased selection:bg-[#E59500] selection:text-black min-h-screen flex flex-col">
+<!-- Top Command Header: Brand, Telemetry & Global Controls -->
+<header class="sticky top-0 z-50 h-16 bg-[#0A0B0E]/90 backdrop-blur-md border-b border-[#2A2D37] px-6 lg:px-10 flex items-center justify-between transition-all">
+<!-- Brand Identity -->
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-3.5 group focus:outline-none" href="#">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1C1F28] to-[#12141A] border border-[#E59500]/50 flex items-center justify-center shadow-lg shadow-[#E59500]/5 group-hover:border-[#E59500] transition-all">
+<span class="font-['Space_Grotesk'] text-sm font-bold text-[#E59500] tracking-tighter">E</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-['Space_Grotesk'] font-bold tracking-[0.22em] text-[#F5F6F8]">ELITE<span class="text-[#E59500]">BOT</span></span>
+<span class="text-[9px] font-mono tracking-widest text-[#94A3B8] -mt-0.5">CONCIERGE</span>
+</div>
+</a>
+<!-- Primary Nav -->
+<nav class="hidden md:flex items-center gap-7 text-xs font-mono tracking-wider uppercase">
+<a class="text-[#E59500] font-semibold pb-1 border-b-2 border-[#E59500] flex items-center gap-1.5" href="#">
+<span class="w-1.5 h-1.5 rounded-full bg-[#E59500] animate-pulse"></span>
+        Dashboard
+      </a>
+<a class="text-[#94A3B8] hover:text-[#F5F6F8] transition-colors" href="#">Perfumaria</a>
+<a class="text-[#94A3B8] hover:text-[#F5F6F8] transition-colors" href="#">Vestuário</a>
+<a class="text-[#94A3B8] hover:text-[#F5F6F8] transition-colors" href="#">Alertas</a>
+</nav>
+</div>
+<!-- Telemetry Bar + Search + Account -->
+<div class="flex items-center gap-6">
+<!-- Inline Telemetry -->
+<div class="hidden xl:flex items-center gap-4 text-[11px] font-mono py-1 px-3.5 rounded-full bg-[#14161C] border border-[#2A2D37]">
+<span class="text-[#94A3B8]">Monitorados: <strong class="text-[#F5F6F8] font-semibold">14.280 SKUs</strong></span>
+<span class="text-[#2A2D37]">|</span>
+<span class="text-[#94A3B8]">Varredura: <strong class="text-[#10b981] font-semibold">142ms</strong></span>
+</div>
+<!-- Quick Search -->
+<div class="hidden sm:flex items-center w-72 bg-[#14161C] border border-[#2A2D37] px-3.5 py-1.5 rounded-lg text-xs text-[#94A3B8] focus-within:border-[#E59500]/60 focus-within:text-[#F5F6F8] transition-all">
+<span class="material-symbols-outlined text-[17px] text-[#94A3B8] mr-2">search</span>
+<input class="bg-transparent border-none p-0 text-xs text-[#F5F6F8] placeholder-[#64748B] focus:ring-0 w-full outline-none font-sans" placeholder="Buscar acorde ou modelo..." type="text"/>
+<kbd class="text-[10px] text-[#64748B] font-mono bg-[#0A0B0E] px-1.5 py-0.5 rounded border border-[#2A2D37]">⌘K</kbd>
+</div>
+<!-- Account Status -->
+<div class="flex items-center gap-3 pl-3 border-l border-[#2A2D37]">
+<span class="inline-block w-2 h-2 rounded-full bg-[#10b981] shadow-sm shadow-[#10b981]/50"></span>
+<span class="text-[11px] font-mono text-[#94A3B8] hidden lg:inline uppercase tracking-wider">Connoisseur Tier</span>
+<div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#1E222D] to-[#2B303F] border border-[#3E4456] flex items-center justify-center text-[10px] text-[#F5F6F8] font-mono font-semibold">
+        CP
+      </div>
+</div>
+</div>
+</header>
+<!-- Main Container -->
+<main class="flex-1 px-6 lg:px-10 py-8 max-w-[1720px] mx-auto w-full flex flex-col gap-8">
+<!-- Breadcrumb & Sector Navigation Tag -->
+<div class="flex items-center justify-between pb-4 border-b border-[#2A2D37]">
+<div class="flex items-center gap-2.5 text-xs font-mono">
+<span class="text-[#E59500] uppercase tracking-wider font-semibold">Radar Connoisseur</span>
+<span class="text-[#3E4456]">/</span>
+<span class="text-[#94A3B8]">Nicho &amp; Alfaiataria Masculina</span>
+</div>
+<div class="flex xl:hidden items-center gap-3 text-xs font-mono text-[#94A3B8]">
+<span>Monitorados: <strong class="text-[#F5F6F8] font-normal">14.280 SKUs</strong></span>
+<span>•</span>
+<span>Varredura: <strong class="text-[#10b981] font-normal">142ms</strong></span>
+</div>
+</div>
+<!-- HERO ROW: Curadoria Editorial Full-Width Billboard + Live Telemetry Cards -->
+<section class="relative rounded-xl overflow-hidden bg-gradient-to-r from-[#14161C] via-[#161820] to-[#12141A] border border-[#2A2D37] shadow-2xl">
+<!-- Subtle Amber Glow Background -->
+<div class="absolute -top-24 right-1/4 w-96 h-96 bg-[#E59500]/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="p-8 lg:p-10 flex flex-col gap-8 relative z-10">
+<div class="max-w-4xl flex flex-col gap-3">
+<div class="flex items-center gap-2.5">
+<span class="text-[11px] font-mono text-[#E59500] font-bold tracking-[0.28em] uppercase">CURADORIA EDITORIAL</span>
+<span class="text-[#3E4456]">•</span>
+<span class="text-[11px] font-mono text-[#94A3B8] tracking-widest uppercase">EDIÇÃO 04</span>
+</div>
+<h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#F5F6F8] tracking-tight leading-snug">
+          Lançamentos que atualizam um clássico do guarda-roupa e da perfumaria masculina.
+        </h1>
+</div>
+<!-- Essential Telemetry Ribbon (4-card dynamic grid) -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-[#2A2D37]/80">
+<!-- Metric 1 -->
+<div class="p-4 rounded-lg bg-[#0A0B0E]/60 border border-[#2A2D37] hover:border-[#E59500]/40 transition-colors">
+<p class="text-[10px] font-mono uppercase text-[#94A3B8] tracking-wider">Preço Médio Cesta</p>
+<p class="text-xl font-mono font-semibold text-[#F5F6F8] mt-1.5">R$ 174,00</p>
+</div>
+<!-- Metric 2 -->
+<div class="p-4 rounded-lg bg-[#0A0B0E]/60 border border-[#2A2D37] hover:border-[#10b981]/40 transition-colors">
+<p class="text-[10px] font-mono uppercase text-[#94A3B8] tracking-wider">Mínima Histórica</p>
+<p class="text-xl font-mono font-semibold text-[#10b981] mt-1.5">R$ 139,90</p>
+</div>
+<!-- Metric 3 -->
+<div class="p-4 rounded-lg bg-[#0A0B0E]/60 border border-[#2A2D37] hover:border-[#8C4320]/50 transition-colors">
+<p class="text-[10px] font-mono uppercase text-[#94A3B8] tracking-wider">Volatilidade</p>
+<p class="text-xl font-mono font-semibold text-[#F5F6F8] mt-1.5">Baixa (4.1%)</p>
+</div>
+<!-- Metric 4 -->
+<div class="p-4 rounded-lg bg-[#0A0B0E]/60 border border-[#2A2D37] hover:border-[#E59500]/40 transition-colors">
+<p class="text-[10px] font-mono uppercase text-[#94A3B8] tracking-wider">Índice Connoisseur</p>
+<p class="text-xl font-mono font-semibold text-[#E59500] mt-1.5">9.4 / 10</p>
+</div>
+</div>
+</div>
+</section>
+<!-- SPLIT WORKSPACE: Left Main Feeds (Analytics + Grid) & Right Sticky Companion Extension -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- LEFT 8 COLS: Chart & Matriz de Oportunidades -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Preço Histórico — Chart Console -->
+<div class="rounded-xl bg-[#14161C] border border-[#2A2D37] p-6 lg:p-7 shadow-xl">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-[#2A2D37] gap-3">
+<div>
+<h3 class="text-base font-semibold text-[#F5F6F8] tracking-tight">Variação Histórica de Preços (180 Dias)</h3>
+<p class="text-xs font-mono text-[#94A3B8] mt-0.5">Fragrâncias Amadeiradas vs. Calçados de Couro Nobre</p>
+</div>
+<div class="flex items-center gap-4 text-xs font-mono bg-[#0A0B0E] px-3 py-1.5 rounded-md border border-[#2A2D37]">
+<span class="flex items-center gap-1.5 text-[#E59500]">
+<span class="w-2.5 h-1 rounded-full bg-[#E59500]"></span> Perfumaria
+            </span>
+<span class="text-[#2A2D37]">/</span>
+<span class="flex items-center gap-1.5 text-[#94A3B8]">
+<span class="w-2.5 h-1 rounded-full bg-[#94A3B8]"></span> Calçados
+            </span>
+</div>
+</div>
+<!-- SVG Vector Oscillations with Amber and Slate Lines -->
+<div class="w-full pt-6 flex flex-col justify-end">
+<svg class="w-full h-36 overflow-visible" preserveaspectratio="none" viewbox="0 0 600 100">
+<defs>
+<lineargradient id="amberGlow" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#E59500" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#E59500" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line stroke="#2A2D37" stroke-dasharray="3 4" x1="0" x2="600" y1="20" y2="20"></line>
+<line stroke="#2A2D37" stroke-dasharray="3 4" x1="0" x2="600" y1="60" y2="60"></line>
+<!-- Area Gradient under Perfumaria curve -->
+<path d="M 0,85 Q 100,75 200,40 T 400,60 T 600,15 L 600,100 L 0,100 Z" fill="url(#amberGlow)"></path>
+<!-- Baseline: Calçados -->
+<path d="M 0,70 Q 75,50 150,65 T 300,45 T 450,80 T 600,25" fill="none" stroke="#64748B" stroke-opacity="0.5" stroke-width="1.75"></path>
+<!-- Main Curve: Perfumaria (Amber Noir) -->
+<path d="M 0,85 Q 100,75 200,40 T 400,60 T 600,15" fill="none" stroke="#E59500" stroke-width="2.5"></path>
+<!-- Target Nodes -->
+<circle cx="200" cy="40" fill="#E59500" r="3.5"></circle>
+<circle cx="600" cy="15" fill="#10b981" r="4.5" stroke="#0A0B0E" stroke-width="2"></circle>
+</svg>
+<div class="flex justify-between text-[11px] font-mono text-[#64748B] pt-4 mt-2 border-t border-[#2A2D37]">
+<span>OUT 24</span>
+<span>NOV 24</span>
+<span>DEZ 24</span>
+<span>JAN 25</span>
+<span>FEV 25</span>
+<span class="text-[#10b981] font-semibold">HOJE (R$ 149,90)</span>
+</div>
+</div>
+</div>
+<!-- Matriz de Oportunidades: Curated Selection Section -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h2 class="text-xs font-mono uppercase tracking-[0.25em] text-[#94A3B8]">Matriz de Oportunidades</h2>
+<span class="w-1.5 h-1.5 rounded-full bg-[#E59500]"></span>
+</div>
+<a class="text-xs font-mono text-[#E59500] hover:text-[#f8b84d] transition-colors uppercase tracking-wider font-medium flex items-center gap-1 group" href="#">
+            Ver Acervo <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<!-- Card 1: Calçado Urbano -->
+<div class="group rounded-xl bg-[#14161C] border border-[#2A2D37] hover:border-[#E59500]/50 p-4 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#000000]/60">
+<div>
+<div class="h-44 w-full rounded-lg bg-[#0A0B0E] overflow-hidden mb-3.5 relative">
+<img alt="Tênis Couro Legítimo" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_ZwJkaE_7sNMEAF8jBl27dRj2MFAav30YULyYGULDcQOdgQg2pSNYRZrlnyujQhPTiM6yHJQOuEcwmaXm8hLrk7Y3BWxlB26Bt5sTGnOeblWuAsFGbWmNpSaMTggMg2sExDsjbTey46ysHQdp6VfKfKhmXECsFPcfbkQuoL3asqksowTVpeGsVmARmNCxrdk8PjcOsCkhunv9MJX3z5DcwuACh6csAm5GaOy4t5fiLRWcrIeRqmH3"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#14161C] via-transparent to-transparent opacity-60"></div>
+</div>
+<span class="text-[10px] font-mono text-[#94A3B8] uppercase tracking-wider">Aramis Footwear</span>
+<h4 class="text-sm font-semibold text-[#F5F6F8] tracking-tight truncate mt-0.5">Tênis Couro Legítimo Urban</h4>
+<p class="text-xs text-[#94A3B8] font-mono mt-0.5">Tamanho 41 • Solado Costurado</p>
+</div>
+<div class="pt-4 mt-3 border-t border-[#2A2D37] flex items-center justify-between">
+<div>
+<span class="text-xs font-mono text-[#64748B] line-through block">R$ 499,90</span>
+<span class="text-sm font-mono font-bold text-[#F5F6F8]">R$ 349,90</span>
+</div>
+<button class="text-xs font-mono px-3.5 py-1.5 rounded-md bg-[#1C1F28] hover:bg-[#E59500] hover:text-black text-[#F5F6F8] border border-[#363A48] hover:border-[#E59500] font-medium transition-all">
+                Acessar
+              </button>
+</div>
+</div>
+<!-- Card 2: Perfumaria de Nicho -->
+<div class="group rounded-xl bg-[#14161C] border border-[#2A2D37] hover:border-[#E59500]/50 p-4 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#000000]/60">
+<div>
+<div class="h-44 w-full rounded-lg bg-[#0A0B0E] overflow-hidden mb-3.5 relative">
+<img alt="Lattafa Asad" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2qhUYkzmPXGUqM3Jq9vVeRH9Q0E33VIrHoJzPbHFyAitjYI83ukZW_UQl7mi1th8y_Ht-5ygfgONNa6MiNya-GXc5eVKbbPSTJ0x_ZG3x8VuEw9dXZxYpih73LipaIhCUSnMAixTt4kCNtXH04snQTcZR6ytai-j_SECzcRAPZ-Nu6d8zzvj7LCn9hcMJlGf7TKprn3sIxdgvTGaHKLASEC0ypr3Pjj7pqsMPVkWAR2xtZZbSQZa8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#14161C] via-transparent to-transparent opacity-60"></div>
+</div>
+<span class="text-[10px] font-mono text-[#94A3B8] uppercase tracking-wider">Lattafa Dubai</span>
+<h4 class="text-sm font-semibold text-[#F5F6F8] tracking-tight truncate mt-0.5">Asad Elixir Eau de Parfum</h4>
+<p class="text-xs text-[#94A3B8] font-mono mt-0.5">100ml • Especiado Nobre</p>
+</div>
+<div class="pt-4 mt-3 border-t border-[#2A2D37] flex items-center justify-between">
+<div>
+<span class="text-xs font-mono text-[#64748B] line-through block">R$ 380,00</span>
+<span class="text-sm font-mono font-bold text-[#F5F6F8]">R$ 269,00</span>
+</div>
+<button class="text-xs font-mono px-3.5 py-1.5 rounded-md bg-[#1C1F28] hover:bg-[#E59500] hover:text-black text-[#F5F6F8] border border-[#363A48] hover:border-[#E59500] font-medium transition-all">
+                Acessar
+              </button>
+</div>
+</div>
+<!-- Card 3: Alfaiataria Nobre -->
+<div class="group rounded-xl bg-[#14161C] border border-[#2A2D37] hover:border-[#E59500]/50 p-4 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#000000]/60">
+<div>
+<div class="h-44 w-full rounded-lg bg-[#0A0B0E] overflow-hidden mb-3.5 relative">
+<img alt="Blazer Casual Estruturado" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa-Wxg8kvvyVZHcptseZ3scYfn_IYBvQ8oHYmTn37pMUW6UBhdT49ST6Az2atD910zAUbSWG7V5gPZNYlpLSE3lTA3IIqqhw3FYXxfiEg7R6gRU2oRd8LfPNwqWts_jc-XKEgh2xevh4kM1roMLJdLFSUkIAH2YsLpQaih2sclNlIbmN0P3eNxRqpUsZtbytwj4A-fwhz3byeoCUVF0dPhVhYn7OmrLp2K3JHLkcYRUwuW8KjOv1dt"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#14161C] via-transparent to-transparent opacity-60"></div>
+</div>
+<span class="text-[10px] font-mono text-[#94A3B8] uppercase tracking-wider">Richard Sartorial</span>
+<h4 class="text-sm font-semibold text-[#F5F6F8] tracking-tight truncate mt-0.5">Blazer Casual Estruturado</h4>
+<p class="text-xs text-[#94A3B8] font-mono mt-0.5">Lã 120s • Corte Slim 50</p>
+</div>
+<div class="pt-4 mt-3 border-t border-[#2A2D37] flex items-center justify-between">
+<div>
+<span class="text-xs font-mono text-[#64748B] line-through block">R$ 890,00</span>
+<span class="text-sm font-mono font-bold text-[#F5F6F8]">R$ 620,00</span>
+</div>
+<button class="text-xs font-mono px-3.5 py-1.5 rounded-md bg-[#1C1F28] hover:bg-[#E59500] hover:text-black text-[#F5F6F8] border border-[#363A48] hover:border-[#E59500] font-medium transition-all">
+                Acessar
+              </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Rodapé Discreto / Lojas Monitoradas -->
+<div class="pt-6 pb-2 border-t border-[#2A2D37] flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono text-[#94A3B8] gap-3">
+<span class="uppercase tracking-widest text-[10px] text-[#64748B] font-semibold">Rede Verificada:</span>
+<div class="flex items-center gap-4 flex-wrap text-[#94A3B8]">
+<span class="hover:text-[#E59500] transition-colors cursor-default">ARAMIS</span>
+<span class="text-[#3E4456]">•</span>
+<span class="hover:text-[#E59500] transition-colors cursor-default">O BOTICÁRIO</span>
+<span class="text-[#3E4456]">•</span>
+<span class="hover:text-[#E59500] transition-colors cursor-default">SEPHORA</span>
+<span class="text-[#3E4456]">•</span>
+<span class="hover:text-[#E59500] transition-colors cursor-default">FARFETCH</span>
+<span class="text-[#3E4456]">•</span>
+<span class="hover:text-[#E59500] transition-colors cursor-default">RICHARDS</span>
+</div>
+</div>
+</div>
+<!-- RIGHT 4 COLS: Expansive Floating "Elite Extension" Companion Device -->
+<div class="lg:col-span-4 w-full sticky top-24">
+<div class="w-full bg-[#14161C] border border-[#2A2D37] rounded-xl overflow-hidden shadow-2xl backdrop-blur-xl">
+<!-- Extension Window Header -->
+<div class="bg-[#0D0E12] px-4 py-3 border-b border-[#2A2D37] flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-[#8C4320]"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-[#E59500]"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-[#2A2D37]"></span>
+<span class="text-[11px] font-mono text-[#94A3B8] ml-2 uppercase tracking-wider font-semibold">Elite Extension</span>
+</div>
+<span class="text-[10px] font-mono font-semibold text-[#10b981] bg-[#10b981]/15 px-2 py-0.5 rounded border border-[#10b981]/30">Ativo</span>
+</div>
+<!-- Functional Tab Toggle (Swiss minimal) -->
+<div class="grid grid-cols-2 p-1.5 bg-[#0A0B0E] border-b border-[#2A2D37] gap-1.5 text-[11px] font-mono uppercase tracking-wider">
+<button class="py-2 rounded-lg text-center bg-[#1C1F28] text-[#E59500] font-semibold border border-[#2A2D37] shadow-sm">Perfumaria</button>
+<button class="py-2 rounded-lg text-center text-[#94A3B8] hover:text-[#F5F6F8] transition-colors font-medium">Vestuário</button>
+</div>
+<div class="p-5 sm:p-6 flex flex-col gap-5">
+<!-- Product Identity Row with Hero Reference Image -->
+<div class="flex gap-4 items-start">
+<div class="w-20 h-20 rounded-lg bg-[#0A0B0E] border border-[#2A2D37] overflow-hidden flex-shrink-0 shadow-inner">
+<img alt="Frascaria de Nicho" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1V4QIdnocCih7eA-Ztkx9Hy41jIjCugOCO8MbFfNWpGGm_4wP8KyCX1aIvL8_hnObs6PowY-EZOF0cZ7Zte7153Wtw0cMR9qGRHgwQK07nVSP29gaCLRyJzAvHhd5VVEbA6VDmyVWSNBoYMFQcVbkW4enZWpXFO3MmbM-jTtlkKLxTcpjLvK_Q_pjMOAFhaxHPuGjiFU_PaRtBSsjYP_8HMigpAwIFMwvOBfSFMowMeYaVmNE_doMwyjp8"/>
+</div>
+<div class="flex-1 min-w-0">
+<span class="text-[10px] font-mono uppercase tracking-widest text-[#E59500] font-semibold">O Boticário • Safra 2024</span>
+<h3 class="text-sm font-bold text-[#F5F6F8] tracking-tight mt-0.5 truncate">Malbec Desodorante Colônia</h3>
+<p class="text-xs text-[#94A3B8] font-mono">100ml • Lote Barrique</p>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-lg font-bold text-[#F5F6F8] tracking-tight font-mono">R$ 149,90</span>
+<span class="text-xs text-[#64748B] line-through font-mono">R$ 189,90</span>
+<span class="text-[10px] text-[#E59500] font-mono ml-auto font-semibold bg-[#E59500]/10 px-1.5 py-0.5 rounded border border-[#E59500]/20">↓ 12% 30d</span>
+</div>
+</div>
+</div>
+<!-- Taxonomia Olfativa Estilo Fragrantica (Ultra Clean) -->
+<div class="border-t border-[#2A2D37] pt-4 flex flex-col gap-2.5">
+<div class="flex justify-between items-center text-[10px] font-mono text-[#94A3B8] uppercase tracking-wider">
+<span>Acordes Principais</span>
+<span class="text-[#E59500] font-bold">Score 9.4</span>
+</div>
+<!-- Accord 1 -->
+<div>
+<div class="flex justify-between text-xs font-mono mb-1">
+<span class="text-[#F5F6F8]">Amadeirado Nobre</span>
+<span class="text-[#94A3B8]">95%</span>
+</div>
+<div class="h-1.5 w-full bg-[#0A0B0E] rounded-full overflow-hidden border border-[#2A2D37]/50">
+<div class="h-full bg-gradient-to-r from-[#8C4320] to-[#E59500] rounded-full" style="width: 95%"></div>
+</div>
+</div>
+<!-- Accord 2 -->
+<div>
+<div class="flex justify-between text-xs font-mono mb-1">
+<span class="text-[#F5F6F8]">Especiado Quente</span>
+<span class="text-[#94A3B8]">78%</span>
+</div>
+<div class="h-1.5 w-full bg-[#0A0B0E] rounded-full overflow-hidden border border-[#2A2D37]/50">
+<div class="h-full bg-[#E59500] rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<!-- Accord 3 -->
+<div>
+<div class="flex justify-between text-xs font-mono mb-1">
+<span class="text-[#F5F6F8]">Couro &amp; Tabaco</span>
+<span class="text-[#94A3B8]">64%</span>
+</div>
+<div class="h-1.5 w-full bg-[#0A0B0E] rounded-full overflow-hidden border border-[#2A2D37]/50">
+<div class="h-full bg-[#64748B] rounded-full" style="width: 64%"></div>
+</div>
+</div>
+</div>
+<!-- Grade de Lojas / Comparador Escaneável -->
+<div class="border-t border-[#2A2D37] pt-4 flex flex-col gap-2">
+<span class="text-[10px] font-mono text-[#94A3B8] uppercase tracking-wider mb-1">Cotação Imediata</span>
+<div class="p-3 rounded-lg bg-[#191D26] border border-[#E59500]/40 flex items-center justify-between shadow-sm">
+<div>
+<p class="text-xs font-semibold text-[#F5F6F8]">O Boticário</p>
+<p class="text-[10px] font-mono text-[#94A3B8]">Oficial • Frete Grátis</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-mono font-bold text-[#10b981]">R$ 149,90</span>
+<a class="text-xs bg-[#E59500] hover:bg-[#f5a716] text-black font-semibold px-2.5 py-1 rounded font-mono transition-colors shadow" href="#">Ir →</a>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-[#0E1015] border border-[#2A2D37] flex items-center justify-between hover:border-[#3E4456] transition-colors">
+<span class="text-xs text-[#94A3B8]">Beleza na Web</span>
+<span class="text-xs font-mono text-[#F5F6F8]">R$ 169,90</span>
+</div>
+<div class="p-2.5 rounded-lg bg-[#0E1015] border border-[#2A2D37] flex items-center justify-between hover:border-[#3E4456] transition-colors">
+<span class="text-xs text-[#94A3B8]">Mercado Livre</span>
+<span class="text-xs font-mono text-[#F5F6F8]">R$ 175,00</span>
+</div>
+</div>
+<!-- Alerta de Preço Direto (Sem rodeios) -->
+<div class="border-t border-[#2A2D37] pt-4">
+<span class="text-[10px] font-mono text-[#94A3B8] uppercase tracking-wider block mb-2">Alvo de Preço</span>
+<div class="flex gap-2">
+<div class="flex-1 relative">
+<span class="absolute left-3 top-2 text-xs text-[#64748B] font-mono">R$</span>
+<input class="w-full bg-[#0A0B0E] border border-[#2A2D37] rounded-lg text-xs font-mono text-[#F5F6F8] pl-9 py-2 focus:border-[#E59500] focus:ring-0 outline-none transition-colors" type="text" value="130,00"/>
+</div>
+<button class="px-3.5 py-2 bg-[#1C1F28] hover:bg-[#252A36] text-xs font-mono text-[#F5F6F8] border border-[#3E4456] hover:border-[#E59500] rounded-lg transition-all uppercase tracking-wider font-semibold">
+                Criar Alerta
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
