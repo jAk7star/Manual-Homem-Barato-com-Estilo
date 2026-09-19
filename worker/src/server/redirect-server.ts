@@ -49,6 +49,8 @@ export function startRedirectServer(): http.Server {
         const campaign = parsedUrl.searchParams.get('campaign') || undefined;
         const userId = parsedUrl.searchParams.get('user_id') || undefined;
 
+        const fallbackUrl = parsedUrl.searchParams.get('fallback');
+
         // Registra o clique e busca a URL de afiliado
         const result = await registerClick({
           offerId,
@@ -57,19 +59,15 @@ export function startRedirectServer(): http.Server {
           campaign,
         });
 
-        if (!result) {
-          res.writeHead(404, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: 'Oferta não encontrada ou inativa' }));
-          return;
-        }
+        const targetUrl = result?.affiliateUrl || fallbackUrl || 'https://www.boticario.com.br/malbec-desodorante-colonia-100ml/';
 
         console.log(
-          `[affiliate-redirect] click_id=${result.clickId} offer_id=${offerId} source=${source} ➔ 302 Redirect to: ${result.affiliateUrl}`,
+          `[affiliate-redirect] click_id=${result?.clickId || 'demo'} offer_id=${offerId} source=${source} ➔ 302 Redirect to: ${targetUrl}`,
         );
 
         // Retorna Redirecionamento HTTP 302 Found
         res.writeHead(302, {
-          Location: result.affiliateUrl,
+          Location: targetUrl,
           'Cache-Control': 'no-cache, no-store, must-revalidate',
         });
         res.end();

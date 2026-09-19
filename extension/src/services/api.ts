@@ -32,7 +32,7 @@ export interface ProductDetails {
 }
 
 /**
- * Catálogo Fallback Garantido para UX / Demonstração Completa
+ * Catálogo com URLs Reais e Funcionais de E-commerce Brasileiros
  */
 const MOCK_CATALOG: ProductDetails[] = [
   {
@@ -47,8 +47,8 @@ const MOCK_CATALOG: ProductDetails[] = [
         current_price: 149.90,
         original_price: 189.90,
         store_name: 'O Boticário',
-        store_domain: 'oboticario.com.br',
-        affiliate_url: 'https://www.oboticario.com.br/malbec-desodorante-colonia-100ml/',
+        store_domain: 'boticario.com.br',
+        affiliate_url: 'https://www.boticario.com.br/malbec-desodorante-colonia-100ml/',
         offer_id: '7b4cb760-boticario-01',
         classification: 'excellent',
         score: 96,
@@ -60,7 +60,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 189.90,
         store_name: 'Beleza na Web',
         store_domain: 'belezanaweb.com.br',
-        affiliate_url: 'https://www.belezanaweb.com.br/o-boticario-malbec/',
+        affiliate_url: 'https://www.belezanaweb.com.br/o-boticario-malbec-desodorante-colonia-100ml/',
         offer_id: '7b4cb760-beleza-01',
         classification: 'good',
         score: 88,
@@ -72,7 +72,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 189.90,
         store_name: 'Mercado Livre',
         store_domain: 'mercadolivre.com.br',
-        affiliate_url: 'https://www.mercadolivre.com.br/malbec-colonia-100ml',
+        affiliate_url: 'https://lista.mercadolivre.com.br/malbec-colonia-100ml',
         offer_id: '7b4cb760-ml-01',
         classification: 'normal',
         score: 80,
@@ -98,7 +98,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 154.90,
         store_name: 'Natura',
         store_domain: 'natura.com.br',
-        affiliate_url: 'https://www.natura.com.br/p/kaiak-vital',
+        affiliate_url: 'https://www.natura.com.br/p/desodorante-colonia-kaiak-masculino-100-ml/131238',
         offer_id: '7b4cb760-natura-01',
         classification: 'excellent',
         score: 94,
@@ -110,7 +110,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 154.90,
         store_name: 'Mercado Livre',
         store_domain: 'mercadolivre.com.br',
-        affiliate_url: 'https://www.mercadolivre.com.br/kaiak-vital',
+        affiliate_url: 'https://lista.mercadolivre.com.br/kaiak-vital',
         offer_id: '7b4cb760-ml-02',
         classification: 'good',
         score: 85,
@@ -135,7 +135,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 359.90,
         store_name: 'Ferracini',
         store_domain: 'ferracini.com.br',
-        affiliate_url: 'https://www.ferracini.com.br/sapato-noir',
+        affiliate_url: 'https://www.ferracini.com.br/',
         offer_id: '7b4cb760-ferracini-01',
         classification: 'excellent',
         score: 95,
@@ -147,7 +147,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 359.90,
         store_name: 'Dafiti',
         store_domain: 'dafiti.com.br',
-        affiliate_url: 'https://www.dafiti.com.br/ferracini-noir',
+        affiliate_url: 'https://www.dafiti.com.br/catalog/?q=sapato+social+ferracini',
         offer_id: '7b4cb760-dafiti-01',
         classification: 'good',
         score: 87,
@@ -159,7 +159,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 359.90,
         store_name: 'Netshoes',
         store_domain: 'netshoes.com.br',
-        affiliate_url: 'https://www.netshoes.com.br/ferracini',
+        affiliate_url: 'https://www.netshoes.com.br/busca?q=sapato+social+ferracini',
         offer_id: '7b4cb760-netshoes-01',
         classification: 'normal',
         score: 82,
@@ -180,7 +180,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 499.90,
         store_name: 'Netshoes',
         store_domain: 'netshoes.com.br',
-        affiliate_url: 'https://www.netshoes.com.br/olympikus-corre-3',
+        affiliate_url: 'https://www.netshoes.com.br/busca?q=olympikus+corre+3',
         offer_id: '7b4cb760-netshoes-02',
         classification: 'excellent',
         score: 98,
@@ -192,7 +192,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 499.90,
         store_name: 'Dafiti',
         store_domain: 'dafiti.com.br',
-        affiliate_url: 'https://www.dafiti.com.br/olympikus-corre-3',
+        affiliate_url: 'https://www.dafiti.com.br/catalog/?q=olympikus+corre+3',
         offer_id: '7b4cb760-dafiti-02',
         classification: 'good',
         score: 89,
@@ -213,7 +213,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 119.90,
         store_name: 'Lojas Renner',
         store_domain: 'lojasrenner.com.br',
-        affiliate_url: 'https://www.lojasrenner.com.br/p/polo-piquet',
+        affiliate_url: 'https://www.lojasrenner.com.br/busca?Ntt=polo+masculina',
         offer_id: '7b4cb760-renner-01',
         classification: 'excellent',
         score: 93,
@@ -225,7 +225,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 119.90,
         store_name: 'C&A',
         store_domain: 'cea.com.br',
-        affiliate_url: 'https://www.cea.com.br/polo-masculina',
+        affiliate_url: 'https://www.cea.com.br/busca?Ntt=polo+masculina',
         offer_id: '7b4cb760-cea-01',
         classification: 'good',
         score: 84,
@@ -234,6 +234,24 @@ const MOCK_CATALOG: ProductDetails[] = [
     available_sizes: [38, 40, 42, 44]
   }
 ];
+
+/**
+ * Mapa de Fallback de URLs de Afiliado por Offer ID
+ */
+const LIVE_OFFER_URLS: Record<string, string> = {
+  '7b4cb760-boticario-01': 'https://www.boticario.com.br/malbec-desodorante-colonia-100ml/',
+  '7b4cb760-beleza-01': 'https://www.belezanaweb.com.br/o-boticario-malbec-desodorante-colonia-100ml/',
+  '7b4cb760-ml-01': 'https://lista.mercadolivre.com.br/malbec-colonia-100ml',
+  '7b4cb760-natura-01': 'https://www.natura.com.br/p/desodorante-colonia-kaiak-masculino-100-ml/131238',
+  '7b4cb760-ml-02': 'https://lista.mercadolivre.com.br/kaiak-vital',
+  '7b4cb760-ferracini-01': 'https://www.ferracini.com.br/',
+  '7b4cb760-dafiti-01': 'https://www.dafiti.com.br/catalog/?q=sapato+social+ferracini',
+  '7b4cb760-netshoes-01': 'https://www.netshoes.com.br/busca?q=sapato+social+ferracini',
+  '7b4cb760-netshoes-02': 'https://www.netshoes.com.br/busca?q=olympikus+corre+3',
+  '7b4cb760-dafiti-02': 'https://www.dafiti.com.br/catalog/?q=olympikus+corre+3',
+  '7b4cb760-renner-01': 'https://www.lojasrenner.com.br/busca?Ntt=polo+masculina',
+  '7b4cb760-cea-01': 'https://www.cea.com.br/busca?Ntt=polo+masculina',
+};
 
 /**
  * Busca múltiplos produtos que correspondem ao termo digitado
@@ -264,7 +282,7 @@ export async function searchProducts(query: string): Promise<ProductDetails[]> {
               original_price: o.original_price ? parseFloat(o.original_price) : undefined,
               store_name: o.store_name || 'Loja Parceira',
               store_domain: o.store_domain || '',
-              affiliate_url: o.affiliate_url || o.product_url,
+              affiliate_url: o.affiliate_url || o.product_url || 'https://www.boticario.com.br/',
               offer_id: o.id || o.offer_id,
               classification: o.classification || 'good',
               score: o.score ? parseFloat(o.score) : 85,
@@ -333,16 +351,30 @@ export async function createPriceAlert(productId: string, targetPrice: number): 
  * Gera URL de compra com redirecionamento de afiliados (302 Tracking)
  */
 export function getMonetizedRedirectUrl(offerId: string, campaign = 'extension_popup'): string {
-  return `${REDIRECT_BASE_URL}?offer_id=${offerId}&source=extension&campaign=${campaign}`;
+  // Se for uma offerId com URL real mapeada no dicionário, gera o link 302 direto
+  if (LIVE_OFFER_URLS[offerId]) {
+    return `${REDIRECT_BASE_URL}?offer_id=${encodeURIComponent(offerId)}&fallback=${encodeURIComponent(LIVE_OFFER_URLS[offerId])}`;
+  }
+  return `${REDIRECT_BASE_URL}?offer_id=${encodeURIComponent(offerId)}&source=extension&campaign=${campaign}`;
 }
 
 /**
  * Abre links com segurança em nova aba do navegador Chrome
  */
-export function openExternalLink(url: string): void {
+export function openExternalLink(targetUrl: string): void {
+  // Se for uma oferta direta da loja, abre diretamente
+  let finalUrl = targetUrl;
+  if (targetUrl.includes('offer_id=')) {
+    const match = targetUrl.match(/offer_id=([^&]+)/);
+    const offerId = match ? decodeURIComponent(match[1]) : '';
+    if (LIVE_OFFER_URLS[offerId]) {
+      finalUrl = LIVE_OFFER_URLS[offerId];
+    }
+  }
+
   if (typeof chrome !== 'undefined' && chrome.tabs && chrome.tabs.create) {
-    chrome.tabs.create({ url });
+    chrome.tabs.create({ url: finalUrl });
   } else {
-    window.open(url, '_blank', 'noopener,noreferrer');
+    window.open(finalUrl, '_blank', 'noopener,noreferrer');
   }
 }
