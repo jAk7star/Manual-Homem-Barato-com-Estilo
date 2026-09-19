@@ -10,11 +10,34 @@
  */
 
 import { BelezaNaWebConnector } from './beleza-na-web.ts';
+import { MercadoLivreConnector } from './mercado-livre.ts';
+import { RennerConnector } from './renner.ts';
+import { HeringConnector } from './hering.ts';
+import { CeaConnector } from './cea.ts';
+import { BoticarioConnector } from './boticario.ts';
+import { NaturaConnector } from './natura.ts';
+import { DafitiConnector } from './dafiti.ts';
+import { NetshoesConnector } from './netshoes.ts';
+import { DemocrataConnector } from './democrata.ts';
+import { FerraciniConnector } from './ferracini.ts';
 import type { StoreConnector } from './types.ts';
 
 const REGISTRY: ReadonlyMap<string, StoreConnector> = new Map([
   [BelezaNaWebConnector.domain, BelezaNaWebConnector],
+  [MercadoLivreConnector.domain, MercadoLivreConnector],
+  ['produto.mercadolivre.com.br', MercadoLivreConnector],
+  [RennerConnector.domain, RennerConnector],
+  [HeringConnector.domain, HeringConnector],
+  [CeaConnector.domain, CeaConnector],
+  [BoticarioConnector.domain, BoticarioConnector],
+  [NaturaConnector.domain, NaturaConnector],
+  [DafitiConnector.domain, DafitiConnector],
+  [NetshoesConnector.domain, NetshoesConnector],
+  [DemocrataConnector.domain, DemocrataConnector],
+  [FerraciniConnector.domain, FerraciniConnector],
 ]);
+
+
 
 /**
  * Retorna o connector registrado para o domínio informado.

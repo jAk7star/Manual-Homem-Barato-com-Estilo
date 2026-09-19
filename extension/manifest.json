@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Elite Bot — Guia do Homem Barato",
+  "version": "1.0.0",
+  "description": "Assistente inteligente de comparador de preços e ofertas para moda, sapatos e perfumaria masculina.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "notifications"
+  ],
+  "host_permissions": [
+    "http://localhost:3001/*",
+    "http://localhost:3002/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.oboticario.com.br/*",
+        "https://*.natura.com.br/*",
+        "https://*.belezanaweb.com.br/*",
+        "https://*.lojasrenner.com.br/*",
+        "https://*.cea.com.br/*",
+        "https://*.hering.com.br/*",
+        "https://*.dafiti.com.br/*",
+        "https://*.netshoes.com.br/*",
+        "https://*.democrata.com.br/*",
+        "https://*.ferracini.com.br/*",
+        "https://*.mercadolivre.com.br/*"
+      ],
+      "js": ["content-script.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Elite Bot — Comparador de Preços"
+  }
+}

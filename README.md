@@ -175,8 +175,14 @@ Consulte a [Spec Postman](Specs/Elite-Bot-Postman-Specification.md) para a docum
 
 | Documento | Conteúdo |
 |---|---|
+| 🎨 [**Espec. de Design & Prompt Google Stitch**](GOOGLE_STITCH_DESIGN_SPEC.md) | **Guia visual Dark Cyber-Luxe e prompt pronto para o Google Stitch AI** |
+| 📗 [**Documentação Técnica da API**](API_DOCUMENTATION.md) | **Guia completo da API REST, Quickstart, RLS, Endpoints e Matriz de Erros** |
+| 🧪 [**Guia de Testes Postman / Newman**](POSTMAN_GUIDE.md) | **Como rodar e validar a suíte de testes da API via Postman ou CLI** |
 | [Spec Fundamental](Specs/Elite%20Bot-Guia%20do%20Homem%20Barato.md) | Visão, arquitetura, fluxos, roadmap |
 | [Spec Backend](Specs/Elite-Bot-Backend-Specification.md) | Entidades, agents, jobs, segurança |
 | [Spec Frontend](Specs/Elite-Bot-Frontend-Specification.md) | Telas, componentes, fluxos de UI |
 | [Spec API](Specs/Elite-Bot-API-Specification.md) | Endpoints, contratos, controle de acesso |
 | [Spec Postman](Specs/Elite-Bot-Postman-Specification.md) | Collection, environments, testes |
+
+
+

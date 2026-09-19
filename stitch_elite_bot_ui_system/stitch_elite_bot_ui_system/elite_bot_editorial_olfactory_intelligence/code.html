@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-primary-container":"#511500","surface-container-high":"#292a2d","on-surface":"#e3e2e6","secondary-fixed":"#ffdcc3","on-error-container":"#ffdad6","on-primary-fixed":"#390c00","on-secondary":"#4d2600","inverse-on-surface":"#2f3034","on-tertiary-fixed-variant":"#673c21","on-secondary-container":"#432100","on-surface-variant":"#dec0b7","tertiary-fixed":"#ffdbc8","surface-container":"#1f1f23","on-error":"#690005","secondary-container":"#d97707","on-background":"#e3e2e6","secondary":"#ffb77d","background":"#121316","on-tertiary-fixed":"#321300","error-container":"#93000a","surface-dim":"#121316","on-tertiary-container":"#442007","on-secondary-fixed":"#2f1500","on-primary":"#5c1900","on-tertiary":"#4c270d","surface-bright":"#38393c","primary":"#ffb59c","on-primary-fixed-variant":"#822801","surface-container-lowest":"#0d0e11","tertiary-fixed-dim":"#f7b995","primary-container":"#e46f45","surface-container-low":"#1b1b1f","error":"#ffb4ab","on-secondary-fixed-variant":"#6e3900","surface":"#121316","inverse-primary":"#a23e18","tertiary-container":"#bb8463","outline":"#a58b83","tertiary":"#f7b995","surface-variant":"#343538","inverse-surface":"#e3e2e6","primary-fixed":"#ffdbcf","surface-tint":"#ffb59c","secondary-fixed-dim":"#ffb77d","surface-container-highest":"#343538","outline-variant":"#57423b","primary-fixed-dim":"#ffb59c"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin-mobile":"1rem","space-xs":"0.25rem","space-xl":"2.5rem","gutter-lg":"2rem","space-sm":"0.5rem","gutter-sm":"1rem","space-md":"1rem","margin":"2rem","margin-desktop":"3rem","space-lg":"1.5rem","gutter":"1.5rem"},"fontFamily":{"body-lg":["Manrope"],"code-spec":["Space Grotesk"],"headline-lg":["Manrope"],"headline-md":["Manrope"],"display-hero":["Manrope"],"label-pill":["Space Grotesk"],"headline-lg-mobile":["Manrope"],"label-caps":["Space Grotesk"],"display-hero-mobile":["Manrope"],"headline-sm":["Manrope"],"body-sm":["Manrope"],"body-md":["Manrope"]},"fontSize":{"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"400"}],"code-spec":["13px",{"lineHeight":"18px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"500"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"600"}],"label-pill":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-caps":["11px",{"lineHeight":"14px","letterSpacing":"0.12em","fontWeight":"600"}],"display-hero-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-sm":["18px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0.01em","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.65)]"><div class="h-16 w-full px-gutter-lg flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="Elite Bot Editorial Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WzLfW8jkcr9mVzj1DRsgf8nAD2S1l9ExZV8jZZSIHLv-oQ-ZQwe-R8i4vQX3EmcsQw7bMI8WaV5Lu4LEwoCbs1GXU2BaZpMVyIhTpXnd3yf4VXrAU-doWKD1coOXPIoT3AyMqnGMroVKQ4rJcaYzRvt5aejEeyWNySOGhJEmti9S8EjF3MWNgPEUW5kUAQplpDu1KDq0VcxCxy0nPxga1MskIQSrFFMR9oRkJQFIIFIzzQjcvEjp-raCg"/><div class="flex flex-col"><span class="font-label-caps text-label-caps uppercase tracking-[0.2em] text-primary">Elite Bot</span><span class="font-code-spec text-code-spec text-on-surface-variant hidden sm:inline">Studio &amp; Concierge</span></div></div><nav class="hidden xl:flex items-center gap-space-lg" data-active-classes="text-primary font-headline-sm"><a aria-current="page" class="transition-colors text-primary font-headline-sm" data-path="dashboard" href="#">Dashboard</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="perfumaria-e-notas" href="#">Perfumaria &amp; Notas</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="alfaiataria-e-calcados" href="#">Alfaiataria &amp; Calçados</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="cupons-e-alertas" href="#">Cupons &amp; Alertas</a></nav></div><div class="flex-1 max-w-md hidden md:flex items-center relative"><div class="w-full flex items-center bg-surface-container px-space-md py-space-xs rounded-lg shadow-[0_16px_36px_-8px_rgba(0,0,0,0.65)]"><span class="material-symbols-outlined text-outline text-[18px] mr-space-sm">search</span><input class="w-full bg-transparent font-code-spec text-code-spec text-on-surface placeholder:text-outline focus:outline-none" placeholder="Buscar acordes, alfaiates, marcas ou fragrâncias..." type="text"/><kbd class="font-code-spec text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant uppercase tracking-wider">⌘K</kbd></div></div><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-code-spec text-[11px] uppercase tracking-wider text-secondary">Extension Active</span></div><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden lg:flex flex-col text-left"><span class="font-label-caps text-label-caps uppercase text-on-surface">Connoisseur Tier</span><span class="font-code-spec text-[11px] text-on-surface-variant">São Paulo / Paris</span></div></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-lg shadow-[0_16px_36px_-8px_rgba(0,0,0,0.65)]"><div class="flex flex-col gap-space-lg"><div class="px-space-lg"><span class="font-label-caps text-label-caps uppercase tracking-[0.16em] text-outline">Intelligence Core</span></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-surface-container-high text-primary font-headline-sm"><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg transition-all bg-surface-container-high text-primary font-headline-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body-md text-body-md">Visão Geral</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="perfumaria-e-notas" href="#"><span class="material-symbols-outlined text-[20px]">science</span><span class="font-body-md text-body-md">Perfumaria &amp; Notas</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="alfaiataria-e-calcados" href="#"><span class="material-symbols-outlined text-[20px]">styler</span><span class="font-body-md text-body-md">Alfaiataria &amp; Calçados</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="radar-de-precos" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body-md text-body-md">Radar de Preços</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="cupons-e-alertas" href="#"><span class="material-symbols-outlined text-[20px]">loyalty</span><span class="font-body-md text-body-md">Cupons &amp; Alertas</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="extensao-studio" href="#"><span class="material-symbols-outlined text-[20px]">extension</span><span class="font-body-md text-body-md">Extension Studio</span></a></nav></div><div class="px-space-lg flex flex-col gap-space-sm"><div class="p-space-md rounded-lg bg-surface-container-low"><div class="flex items-center justify-between mb-space-xs"><span class="font-label-caps text-label-caps uppercase text-tertiary">Acordos Ativos</span><span class="font-code-spec text-[11px] text-on-surface-variant">84% Match</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Couro, Vetiver de Bourbon, Âmbar Gris e Lã Super 150s monitorados.</p></div><div class="flex items-center justify-between text-outline font-code-spec text-code-spec pt-space-xs"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">shield</span> v2.4.8</span><span class="uppercase tracking-widest text-[10px]">Aramis Mode</span></div></div></aside><div class="pl-64"><main class="w-full min-h-screen pt-16 px-gutter-lg bg-background"><div class="flex flex-col w-full">
+<!-- Sub-Header Status Line & Quick Overview -->
+<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between py-space-sm mb-space-lg">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-label-caps text-label-caps uppercase tracking-[0.2em] text-primary">Radar Connoisseur</span>
+<span class="text-outline-variant font-code-spec text-code-spec">/</span>
+<span class="font-code-spec text-code-spec text-on-surface-variant">Modo Editorial Dual-Surface</span>
+<span class="text-outline-variant font-code-spec text-code-spec">/</span>
+<div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-code-spec text-[11px] text-secondary">Aramis &amp; Fragrantica Engine v2.4</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md mt-space-xs md:mt-0 font-code-spec text-code-spec text-outline">
+<span>Latência de Scraping: <strong>142ms</strong></span>
+<span class="text-outline-variant">•</span>
+<span>Base Monitorada: <strong>14.280 SKUs</strong></span>
+</div>
+</div>
+<!-- Primary Asymmetric Grid: Chrome Extension (390px pinned view) + Companion Editorial Suite -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter-lg items-start pb-space-xl">
+<!-- LEFT COLUMN: The Extension Simulator Container (~420px width wrapper) -->
+<div class="xl:col-span-4 flex flex-col items-center xl:items-start w-full">
+<!-- Chrome Extension Browser Frame Wrapper -->
+<div class="w-full max-w-[390px] bg-surface-container-lowest rounded-xl shadow-[0_16px_36px_-8px_rgba(0,0,0,0.65)] overflow-hidden">
+<!-- Extension Chrome Bar / Tab Simulator -->
+<div class="w-full bg-surface-container-high px-space-md py-space-xs flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+<span class="ml-2 font-code-spec text-[10px] text-outline uppercase tracking-wider">chrome-extension://elite-bot</span>
+</div>
+<div class="flex items-center gap-space-xs text-outline">
+<button class="hover:text-primary transition-colors" title="Fixar Extensão">
+<span class="material-symbols-outlined text-[16px]">keep</span>
+</button>
+<button class="hover:text-primary transition-colors" title="Configurações">
+<span class="material-symbols-outlined text-[16px]">settings</span>
+</button>
+</div>
+</div>
+<!-- Extension Header & Brand Mark -->
+<div class="p-space-md bg-surface-container-low flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[16px]">science</span>
+</div>
+<span class="font-label-caps text-[13px] tracking-[0.16em] uppercase text-on-surface font-semibold">ELITE BOT</span>
+</div>
+<span class="font-code-spec text-[10px] px-2 py-0.5 rounded bg-surface-container text-secondary uppercase font-medium tracking-wider">Scraper Ativo</span>
+</div>
+<!-- Mode Pills -->
+<div class="grid grid-cols-2 gap-1.5 p-1 rounded-lg bg-surface-container-lowest">
+<button class="flex items-center justify-center gap-1.5 py-1.5 rounded text-center transition-all bg-surface-container text-primary font-code-spec text-label-caps uppercase tracking-wider" id="ext-tab-perfume">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+              Perfumaria
+            </button>
+<button class="flex items-center justify-center gap-1.5 py-1.5 rounded text-center transition-all text-on-surface-variant hover:text-on-surface font-code-spec text-label-caps uppercase tracking-wider" id="ext-tab-vestuario">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+              Vestuário &amp; Calçados
+            </button>
+</div>
+</div>
+<!-- Extension Body Content (Scrollable Simulator) -->
+<div class="p-space-md flex flex-col gap-space-md max-h-[620px] overflow-y-auto">
+<!-- Product Hero Card -->
+<div class="bg-surface-container rounded-lg p-space-md flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex-1 min-w-0">
+<span class="inline-flex items-center gap-1 font-label-caps text-[10px] text-tertiary uppercase tracking-wider">
+<span class="material-symbols-outlined text-[12px]">verified</span> O Boticário • Em Estoque
+                </span>
+<h4 class="font-headline-sm text-[16px] text-on-surface font-medium truncate mt-0.5">Malbec Desodorante Colônia 100ml</h4>
+<p class="font-code-spec text-[11px] text-outline">Amadeirado Marcante • Lote Safra 2024</p>
+</div>
+<div class="w-14 h-14 rounded-lg bg-surface-container-lowest overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up studio shot of Malbec perfume glass bottle with deep amber liquid reflecting soft warm lights against a textured matte dark slate background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLHxg5mnG8trNs44sudE8fmA3CMsY1A6PKt_lfTSypZwPf9rJwM0CkrDpVAi1tDBCRk4eessZVnh1uGRqHKJXlrhtG36Fms7FUVANq0Oc7IROY0NmKwiMctvSHAP9O3Ey8b3a1-wIWeUagwcC2MYJB5laptb5CU8NcdJKXtABxLzAX4LzGmClC2gdm2gL58jUZgD5UCkBnbJFqlKEAMj5WUcSZzVTbLwzPM4x-byTRxmqdU2tgQO5S"/>
+</div>
+</div>
+<!-- Price Breakdown Hero -->
+<div class="flex items-baseline justify-between pt-space-xs">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-[24px] text-primary font-bold">R$ 149,90</span>
+<span class="font-code-spec text-body-sm text-outline line-through">R$ 189,90</span>
+</div>
+<span class="font-code-spec text-[11px] font-semibold text-on-primary-container bg-primary-container px-2 py-0.5 rounded">
+                -21% OFF
+              </span>
+</div>
+</div>
+<!-- Fragrantica-Inspired Olfactory Accord Bars -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Acordes Principais (Taxonomia)</span>
+<span class="font-code-spec text-[10px] text-tertiary uppercase">Fragrantica DNA</span>
+</div>
+<!-- Bar 1: Amadeirado -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-code-spec text-[11px]">
+<span class="text-on-surface">Amadeirado Nobre</span>
+<span class="text-secondary font-medium">95%</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container-lowest overflow-hidden">
+<div class="h-full bg-secondary rounded" style="width: 95%;"></div>
+</div>
+</div>
+<!-- Bar 2: Especiado Quente -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-code-spec text-[11px]">
+<span class="text-on-surface">Especiado Quente</span>
+<span class="text-primary font-medium">78%</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container-lowest overflow-hidden">
+<div class="h-full bg-primary rounded" style="width: 78%;"></div>
+</div>
+</div>
+<!-- Bar 3: Couro & Âmbar -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-code-spec text-[11px]">
+<span class="text-on-surface">Couro Curtido &amp; Âmbar</span>
+<span class="text-primary-container font-medium">64%</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container-lowest overflow-hidden">
+<div class="h-full bg-primary-container rounded" style="width: 64%;"></div>
+</div>
+</div>
+<!-- Bar 4: Cítrico / Fresco -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-code-spec text-[11px]">
+<span class="text-on-surface-variant">Fresco / Cítrico</span>
+<span class="text-outline font-medium">45%</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container-lowest overflow-hidden">
+<div class="h-full bg-surface-container-highest rounded" style="width: 45%;"></div>
+</div>
+</div>
+</div>
+<!-- Aramis-Inspired Footwear Size Selector Preview -->
+<div class="bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Tamanho em Estoque (Calçados)</span>
+<span class="font-code-spec text-[10px] text-primary">Guia Aramis</span>
+</div>
+<div class="grid grid-cols-7 gap-1 pt-1">
+<button class="h-8 rounded bg-surface-container-low font-code-spec text-[11px] text-on-surface-variant hover:bg-surface-container-high transition-colors">38</button>
+<button class="h-8 rounded bg-surface-container-low font-code-spec text-[11px] text-on-surface-variant hover:bg-surface-container-high transition-colors">39</button>
+<button class="h-8 rounded bg-primary-container text-on-primary font-code-spec text-[11px] font-bold shadow-sm">40</button>
+<button class="h-8 rounded bg-surface-container-low font-code-spec text-[11px] text-on-surface-variant hover:bg-surface-container-high transition-colors">41</button>
+<button class="h-8 rounded bg-surface-container-low font-code-spec text-[11px] text-on-surface-variant hover:bg-surface-container-high transition-colors">42</button>
+<button class="h-8 rounded bg-surface-container-low font-code-spec text-[11px] text-outline line-through opacity-50">43</button>
+<button class="h-8 rounded bg-surface-container-low font-code-spec text-[11px] text-on-surface-variant hover:bg-surface-container-high transition-colors">44</button>
+</div>
+</div>
+<!-- Multi-Store Price Comparison List -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Comparador Multilojas</span>
+<span class="font-code-spec text-[10px] text-on-surface-variant">4 Ofertas Verificadas</span>
+</div>
+<!-- Row 1 (Lowest price) -->
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-md text-on-surface font-medium truncate">O Boticário</span>
+<span class="font-code-spec text-[9px] bg-secondary-container text-on-secondary px-1.5 rounded uppercase font-semibold">Menor Preço</span>
+</div>
+<span class="font-code-spec text-[11px] text-outline">Frete Grátis • Entrega em 48h</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-code-spec text-[13px] font-bold text-primary">R$ 149,90</span>
+<a class="px-2.5 py-1 rounded bg-primary-container text-on-primary hover:bg-secondary-container transition-all font-code-spec text-[11px] font-medium uppercase tracking-wider flex items-center gap-1" href="#">
+<span>Ir</span>
+<span class="material-symbols-outlined text-[13px]">arrow_outward</span>
+</a>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-on-surface font-normal truncate">Beleza na Web</span>
+<span class="font-code-spec text-[11px] text-outline">Estoque Limitado</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-code-spec text-[13px] text-on-surface font-medium">R$ 169,90</span>
+<a class="px-2 py-1 rounded bg-surface-container-high text-on-surface hover:text-primary transition-all font-code-spec text-[11px]" href="#">
+                  Ver
+                </a>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-on-surface font-normal truncate">Mercado Livre Oficial</span>
+<span class="font-code-spec text-[11px] text-outline">Vendedor Autorizado</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-code-spec text-[13px] text-on-surface font-medium">R$ 175,00</span>
+<a class="px-2 py-1 rounded bg-surface-container-high text-on-surface hover:text-primary transition-all font-code-spec text-[11px]" href="#">
+                  Ver
+                </a>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-on-surface font-normal truncate">Sephora Brasil</span>
+<span class="font-code-spec text-[11px] text-outline">Preço de Tabela</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-code-spec text-[13px] text-outline line-through">R$ 189,00</span>
+<a class="px-2 py-1 rounded bg-surface-container-high text-on-surface hover:text-primary transition-all font-code-spec text-[11px]" href="#">
+                  Ver
+                </a>
+</div>
+</div>
+</div>
+<!-- Coupon & Discount Banner -->
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-secondary text-[20px]">loyalty</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-caps text-[10px] text-secondary uppercase font-semibold">Special Week Exclusiva</span>
+<span class="font-code-spec text-[12px] text-on-surface font-medium truncate">SPECIAL20 (+20% OFF)</span>
+</div>
+</div>
+<button class="px-2 py-1 rounded bg-surface-container-high text-primary font-code-spec text-[11px] uppercase tracking-wider font-semibold hover:bg-primary-container hover:text-on-primary transition-all" id="copy-btn" onclick="navigator.clipboard.writeText('SPECIAL20'); this.innerText='COPIADO';">
+              Copiar
+            </button>
+</div>
+<!-- Price Alert Target Input -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-[10px] text-outline uppercase tracking-wider">Radar de Alvo de Preço</span>
+<span class="material-symbols-outlined text-primary text-[14px]">notifications_active</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex-1 bg-surface-container rounded px-2.5 py-1.5 flex items-center">
+<span class="font-code-spec text-[11px] text-outline mr-1">R$</span>
+<input class="w-full bg-transparent font-code-spec text-[12px] text-on-surface focus:outline-none" type="text" value="130,00"/>
+</div>
+<button class="px-3 py-1.5 rounded bg-primary text-on-primary font-code-spec text-[11px] uppercase tracking-wider font-bold hover:bg-primary-fixed transition-all flex items-center gap-1">
+<span>Criar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Extension Footer -->
+<div class="px-space-md py-space-xs bg-surface-container-high flex items-center justify-between">
+<span class="font-code-spec text-[10px] text-outline">Sincronizado: Aramis &amp; Boticário</span>
+<span class="font-code-spec text-[10px] text-secondary font-medium">há 2 min</span>
+</div>
+</div>
+</div>
+<!-- RIGHT SECTION: Companion Web Editorial Intelligence (Aramis & Fragrantica Synergy) -->
+<div class="xl:col-span-8 flex flex-col gap-space-xl w-full">
+<!-- Top Editorial Banner -->
+<div class="p-space-xl rounded-xl bg-surface-container flex flex-col justify-between relative overflow-hidden">
+<div class="relative z-10 flex flex-col gap-space-sm max-w-2xl">
+<div class="inline-flex items-center gap-2">
+<span class="font-label-caps text-label-caps uppercase tracking-[0.2em] text-primary">Sartorial &amp; Olfactory Intelligence</span>
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="font-code-spec text-[11px] text-on-surface-variant">Editorial Curatorship</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
+            Lançamentos que atualizam um clássico do guarda-roupa e da perfumaria masculina.
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            A convergência estética entre a alfaiataria contemporânea brasileira e a alta perfumaria de nicho. Rastreamento preditivo de preços, acervo de notas nobres e curadoria contínua de calçados italianos e amadeirados intensos.
+          </p>
+</div>
+<!-- Quick Stats Row inside Editorial Header -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-md mt-space-lg pt-space-md">
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] uppercase text-outline">Preço Médio Cesta</span>
+<span class="font-headline-md text-[20px] text-on-surface font-semibold">R$ 174,00</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] uppercase text-outline">Mínima Histórica</span>
+<span class="font-headline-md text-[20px] text-primary font-semibold">R$ 139,90</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] uppercase text-outline">Volatilidade de Preço</span>
+<span class="font-headline-md text-[20px] text-secondary font-semibold">Baixa (4.1%)</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] uppercase text-outline">Índice Connoisseur</span>
+<span class="font-headline-md text-[20px] text-tertiary font-semibold">9.4 / 10</span>
+</div>
+</div>
+</div>
+<!-- Telemetry & Price Trend Chart (Minimalist SVG Line Visualization) -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-medium">Série Histórica de Preços (6 Meses)</h3>
+<p class="font-code-spec text-code-spec text-on-surface-variant">Oscilação ponderada: Fragrâncias Amadeiradas vs. Tênis &amp; Calçados de Couro</p>
+</div>
+<div class="flex items-center gap-space-sm font-code-spec text-[11px]">
+<span class="flex items-center gap-1.5 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Malbec 100ml
+            </span>
+<span class="flex items-center gap-1.5 text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Aramis Urban Leather
+            </span>
+</div>
+</div>
+<!-- Inline SVG Chart -->
+<div class="w-full h-48 bg-surface-container rounded-lg p-space-md flex flex-col justify-end relative">
+<!-- Horizontal Grid Lines -->
+<div class="absolute inset-x-space-md top-4 bottom-8 flex flex-col justify-between pointer-events-none opacity-20">
+<div class="w-full h-px bg-outline"></div>
+<div class="w-full h-px bg-outline"></div>
+<div class="w-full h-px bg-outline"></div>
+<div class="w-full h-px bg-outline"></div>
+</div>
+<!-- SVG Chart Path -->
+<svg class="w-full h-32 overflow-visible" preserveaspectratio="none" viewbox="0 0 700 120">
+<!-- Malbec Line (Terracotta/Primary) -->
+<path class="text-primary" d="M 0,80 Q 70,60 140,75 T 280,45 T 420,50 T 560,95 T 700,20" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+<!-- Aramis Shoe Line (Warm Amber/Secondary) -->
+<path class="text-secondary opacity-80" d="M 0,40 Q 80,45 160,30 T 320,65 T 480,35 T 600,40 T 700,55" fill="none" stroke="currentColor" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- Data Points -->
+<circle class="fill-primary text-primary" cx="280" cy="45" r="4"></circle>
+<circle class="fill-error text-error" cx="560" cy="95" r="4"></circle>
+<circle class="fill-secondary text-secondary" cx="700" cy="20" r="5"></circle>
+</svg>
+<!-- Timeline X-Axis Labels -->
+<div class="w-full flex justify-between font-code-spec text-[11px] text-outline pt-2">
+<span>Nov 24</span>
+<span>Dez 24</span>
+<span>Jan 25</span>
+<span>Fev 25</span>
+<span>Mar 25</span>
+<span class="text-primary font-bold">Hoje (Mínima)</span>
+</div>
+</div>
+</div>
+<!-- Curated Menswear & Fragrance Matrix (Cards inspired by Aramis Shoe Grid & Fragrantica Reviews) -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-outline">Matriz de Oportunidades Selecionadas</span>
+<span class="font-code-spec text-[11px] px-2 py-0.5 rounded bg-surface-container text-tertiary">3 Itens em Queda</span>
+</div>
+<a class="font-code-spec text-[12px] text-primary hover:text-primary-fixed uppercase tracking-wider flex items-center gap-1 font-medium" href="#">
+<span>Ver Catálogo Completo</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Card 1: Aramis Tênis Couro Urban -->
+<div class="bg-surface-container rounded-xl p-space-md flex flex-col justify-between hover:bg-surface-container-high transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="w-full h-44 rounded-lg bg-surface-container-lowest overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Minimalist men luxury brown leather sneaker on a reclaimed oak table against warm editorial studio light with subtle shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSsVCnUxWHLJ9meqskESHZkMmWAPt_OHnSVyosovKf0qY5YurNSHmHHDJ3s5pFjVL1baKzFuHXnwLrys0HTYnkTfcxjIopEz-JpkwkXRi7Iy5x8RtncehStN_EmuDpuX5D2lb26QJF-Sc8YWym_Pl74LaBxqeAsDjWhlCpZebHFtTidLEOGlmb5JlYcoIWPkpIigoyAdODc5BFP2xf4GeCSTbb9jcyhxfxZtBnYaGT81kBLzyrugMz"/>
+<span class="absolute top-2 left-2 font-code-spec text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-primary-container text-on-primary">
+                  -30% OFF
+                </span>
+<span class="absolute top-2 right-2 font-code-spec text-[10px] uppercase px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-sm text-outline">
+                  Tam 41
+                </span>
+</div>
+<div>
+<span class="font-label-caps text-[10px] text-outline uppercase tracking-wider">Aramis Footwear</span>
+<h4 class="font-headline-sm text-[16px] text-on-surface font-medium truncate">Tênis Couro Legítimo Urban</h4>
+<p class="font-code-spec text-[11px] text-on-surface-variant mt-0.5">Solado costurado • Palmilha anatômica</p>
+</div>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-code-spec text-[11px] text-outline line-through">R$ 499,90</span>
+<span class="font-headline-sm text-primary font-bold">R$ 349,90</span>
+</div>
+<button class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-on-surface hover:bg-primary-container hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Asad Elixir Lattafa Perfumes -->
+<div class="bg-surface-container rounded-xl p-space-md flex flex-col justify-between hover:bg-surface-container-high transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="w-full h-44 rounded-lg bg-surface-container-lowest overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Lattafa Asad perfume black and metallic bottle displayed on a dark textured volcanic stone surface in soft golden hour lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDD04E1xLU5LE1z56So9loSzBlN8v7no_VO6OERBnt7qUTVVtwjp7NgHqujVJOM3pEsRIVIxQsIQDh0SIadOHQb5ciF6QEdx2fP1aQQLAkkwCEX6pgoMwGit5TuZtUXHBf9y25ou-k4k2STw7hpJmbchf4JZdUDo-QC5O8i5oW8H715lDL3ifHvuUTt07PbYJQga8-33jy1zmzY84mEOFKtzrpqhPF5q6kP1KIzQeCV_pmUSgVSUX8"/>
+<span class="absolute top-2 left-2 font-code-spec text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-secondary-container text-on-secondary">
+                  Alta Fixação
+                </span>
+<span class="absolute top-2 right-2 font-code-spec text-[10px] uppercase px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-sm text-tertiary">
+                  Eau de Parfum
+                </span>
+</div>
+<div>
+<span class="font-label-caps text-[10px] text-outline uppercase tracking-wider">Lattafa Perfumes Dubai</span>
+<h4 class="font-headline-sm text-[16px] text-on-surface font-medium truncate">Asad Elixir Special Edition</h4>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-low font-code-spec text-[9px] text-secondary">Âmbar</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-low font-code-spec text-[9px] text-primary">Especiado</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-low font-code-spec text-[9px] text-tertiary">Tabaco</span>
+</div>
+</div>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-code-spec text-[11px] text-outline line-through">R$ 380,00</span>
+<span class="font-headline-sm text-primary font-bold">R$ 269,00</span>
+</div>
+<button class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-on-surface hover:bg-primary-container hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Ricardo Almeida / Richard Alfaiataria Blazer Casual -->
+<div class="bg-surface-container rounded-xl p-space-md flex flex-col justify-between hover:bg-surface-container-high transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="w-full h-44 rounded-lg bg-surface-container-lowest overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Tailored luxury charcoal wool blazer draped over an antique wood mannequin with fine sartorial stitching details" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEBAQ7adg6CTPwwDdJszxeepas86IWh-YNYx69baACcyciDTBfar65ufLEinrXcxlKZ0LPPXyW4RK_le2oi1FxP0_jr2BuX_PjQETPp9YIUjycdTKY0H-j53uDWuRiKTJvGxXmF8svEBhuk3GgctctDBDlcDO1oFu-MJsPUJPI819tgtRaTnWD55WtVXU3LWSTUJClmZObwWahLKgnkq0H7J5n2I1bd3O9gLbga9AQtpXeyjnjMga0"/>
+<span class="absolute top-2 left-2 font-code-spec text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-surface-container-highest text-on-surface">
+                  Lã 120s
+                </span>
+<span class="absolute top-2 right-2 font-code-spec text-[10px] uppercase px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-sm text-outline">
+                  Tam 50
+                </span>
+</div>
+<div>
+<span class="font-label-caps text-[10px] text-outline uppercase tracking-wider">Richard Sartorial</span>
+<h4 class="font-headline-sm text-[16px] text-on-surface font-medium truncate">Blazer Casual Estruturado</h4>
+<p class="font-code-spec text-[11px] text-on-surface-variant mt-0.5">Modelagem Slim • Forro jacquard</p>
+</div>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-code-spec text-[11px] text-outline line-through">R$ 890,00</span>
+<span class="font-headline-sm text-primary font-bold">R$ 620,00</span>
+</div>
+<button class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-on-surface hover:bg-primary-container hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Monitored Luxury Stores Bar -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-outline text-[20px]">hub</span>
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-outline">Lojas Monitoradas em Tempo Real:</span>
+</div>
+<div class="flex items-center gap-space-lg flex-wrap justify-center font-code-spec text-[12px] text-on-surface-variant font-medium">
+<span class="hover:text-primary cursor-pointer transition-colors">ARAMIS</span>
+<span class="text-outline-variant">•</span>
+<span class="hover:text-primary cursor-pointer transition-colors">O BOTICÁRIO</span>
+<span class="text-outline-variant">•</span>
+<span class="hover:text-primary cursor-pointer transition-colors">SEPHORA BRASIL</span>
+<span class="text-outline-variant">•</span>
+<span class="hover:text-primary cursor-pointer transition-colors">FARFETCH</span>
+<span class="text-outline-variant">•</span>
+<span class="hover:text-primary cursor-pointer transition-colors">RICHARDS</span>
+<span class="text-outline-variant">•</span>
+<span class="hover:text-primary cursor-pointer transition-colors">BROOKSFIELD</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Inline Script for Tab and Interaction Logic -->
+<script>
+    (function initEliteExtension() {
+      const tabPerfume = document.getElementById('ext-tab-perfume');
+      const tabVestuario = document.getElementById('ext-tab-vestuario');
+      
+      if(tabPerfume && tabVestuario) {
+        tabPerfume.addEventListener('click', () => {
+          tabPerfume.classList.add('bg-surface-container', 'text-primary');
+          tabPerfume.classList.remove('text-on-surface-variant');
+          tabVestuario.classList.remove('bg-surface-container', 'text-primary');
+          tabVestuario.classList.add('text-on-surface-variant');
+        });
+
+        tabVestuario.addEventListener('click', () => {
+          tabVestuario.classList.add('bg-surface-container', 'text-primary');
+          tabVestuario.classList.remove('text-on-surface-variant');
+          tabPerfume.classList.remove('bg-surface-container', 'text-primary');
+          tabPerfume.classList.add('text-on-surface-variant');
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>

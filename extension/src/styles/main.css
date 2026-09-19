@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #121316;
+    color: #F3F4F6;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Custom Anti-Vibe Animations (GPU-Only) */
+.js-animate-card {
+  transition: transform 0.25s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.25s ease-out;
+}
+
+.js-animate-card:hover {
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-animate-card {
+    transition: none !important;
+    transform: none !important;
+  }
+}

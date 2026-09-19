@@ -1,0 +1,656 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "tertiary": "#b4ffd7",
+          "tertiary-fixed": "#6ffbbe",
+          "error": "#ffb4ab",
+          "on-primary-fixed": "#121f00",
+          "secondary-container": "#454747",
+          "on-primary": "#213600",
+          "outline": "#8c947c",
+          "background": "#121318",
+          "on-tertiary-container": "#006846",
+          "on-secondary-fixed": "#1a1c1c",
+          "on-tertiary-fixed-variant": "#005236",
+          "on-secondary-fixed-variant": "#454747",
+          "on-error": "#690005",
+          "surface-container-low": "#1a1b21",
+          "tertiary-container": "#5debaf",
+          "secondary-fixed": "#e2e2e2",
+          "secondary": "#c6c6c7",
+          "primary-container": "#a3e635",
+          "surface-dim": "#121318",
+          "error-container": "#93000a",
+          "secondary-fixed-dim": "#c6c6c7",
+          "surface-variant": "#34343a",
+          "inverse-on-surface": "#2f3036",
+          "surface-container": "#1e1f25",
+          "on-tertiary-fixed": "#002113",
+          "on-tertiary": "#003824",
+          "on-primary-fixed-variant": "#334f00",
+          "on-surface-variant": "#c2cab0",
+          "tertiary-fixed-dim": "#4edea3",
+          "inverse-surface": "#e3e1e9",
+          "on-secondary": "#2f3131",
+          "on-surface": "#e3e1e9",
+          "primary-fixed-dim": "#98da27",
+          "primary": "#ccff80",
+          "surface-container-highest": "#34343a",
+          "surface": "#121318",
+          "inverse-primary": "#446900",
+          "surface-bright": "#38393f",
+          "surface-container-lowest": "#0d0e13",
+          "outline-variant": "#424936",
+          "on-secondary-container": "#b4b5b5",
+          "on-error-container": "#ffdad6",
+          "on-background": "#e3e1e9",
+          "on-primary-container": "#416400",
+          "primary-fixed": "#b2f746",
+          "surface-tint": "#98da27",
+          "surface-container-high": "#292a2f"
+        },
+        "borderRadius": {
+          "DEFAULT": "1rem",
+          "lg": "2rem",
+          "xl": "3rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "space-xl": "2.5rem",
+          "space-lg": "1.5rem",
+          "gutter": "1.25rem",
+          "space-md": "1rem",
+          "margin": "2rem",
+          "space-xs": "0.25rem",
+          "gutter-mobile": "0.75rem",
+          "margin-mobile": "1rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "label-lg": [
+            "Plus Jakarta Sans"
+          ],
+          "label-sm": [
+            "Plus Jakarta Sans"
+          ],
+          "body-md": [
+            "Inter"
+          ],
+          "headline-sm": [
+            "Plus Jakarta Sans"
+          ],
+          "body-sm": [
+            "Inter"
+          ],
+          "headline-lg": [
+            "Plus Jakarta Sans"
+          ],
+          "display-hero-mobile": [
+            "Plus Jakarta Sans"
+          ],
+          "headline-lg-mobile": [
+            "Plus Jakarta Sans"
+          ],
+          "label-md": [
+            "Plus Jakarta Sans"
+          ],
+          "body-lg": [
+            "Inter"
+          ],
+          "headline-md": [
+            "Plus Jakarta Sans"
+          ],
+          "display-hero": [
+            "Plus Jakarta Sans"
+          ]
+        },
+        "fontSize": {
+          "label-lg": [
+            "14px",
+            {
+              "lineHeight": "18px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "label-sm": [
+            "10px",
+            {
+              "lineHeight": "14px",
+              "letterSpacing": "0.08em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-md": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-sm": [
+            "18px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "600"
+            }
+          ],
+          "body-sm": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-lg": [
+            "32px",
+            {
+              "lineHeight": "40px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "display-hero-mobile": [
+            "36px",
+            {
+              "lineHeight": "42px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "800"
+            }
+          ],
+          "headline-lg-mobile": [
+            "26px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "700"
+            }
+          ],
+          "label-md": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.04em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-lg": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "22px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "display-hero": [
+            "56px",
+            {
+              "lineHeight": "64px",
+              "letterSpacing": "-0.03em",
+              "fontWeight": "800"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-surface-container-lowest font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between py-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex flex-col gap-space-lg"><div class="flex items-center gap-space-sm px-space-lg"><img alt="Elite Bot Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1ULGrM6ZEaqky6PWsre63YxYvsK2IqeiOk5toCwgf0vEefacaN_gUYbzkvXiexgL5fHnxJTuoL3e30IP4G_G3woXGRVoUSALRGwKZGegQOGkqrDwJR2RWvQzh6jy3_OicayQzYzCaqD4zOah7zZ9mVC4IMGf9z9Ayf4R6LZq7ZuJHx5J4EU_-9t-_iGzU8cs-GfY1Gwvh6kzZfkPWv0kgXBFs2Z3OZ7jz67u_1BT2mRm4XTtX7S4dKPaik"><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface uppercase">Elite Bot</span></div><div class="px-space-md"><div class="inline-flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-full shadow-[0_0_12px_rgba(163,230,53,0.15)]"><span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-sm text-label-sm text-primary-container tracking-wider uppercase">Bot Active ⚡</span></div></div><nav class="flex flex-col gap-space-xs px-space-md" data-active-classes="bg-surface-container-high text-on-surface font-label-md rounded-full shadow-[0_0_16px_rgba(255,255,255,0.06)]"><a aria-current="page" class="px-space-md py-space-sm transition-all bg-surface-container-high text-on-surface font-label-md rounded-full shadow-[0_0_16px_rgba(255,255,255,0.06)]" data-path="overview" href="#">Overview</a><a class="px-space-md py-space-sm rounded-full text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface transition-all" data-path="live-deals" href="#">Live Deals</a><a class="px-space-md py-space-sm rounded-full text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface transition-all" data-path="extension-popup-view" href="#">Extension Popup View</a><a class="px-space-md py-space-sm rounded-full text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface transition-all" data-path="price-tracker" href="#">Price Tracker</a><a class="px-space-md py-space-sm rounded-full text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface transition-all" data-path="stores-and-integrations" href="#">Stores &amp; Integrations</a></nav></div><div class="px-space-lg flex flex-col gap-space-sm"><div class="bg-surface-container-low rounded-lg p-space-md flex flex-col gap-space-xs shadow-[0_4px_16px_rgba(0,0,0,0.5)]"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Snipe Engine</span><span class="font-label-sm text-label-sm text-primary">v2.4 Pro</span></div><div class="font-body-sm text-body-sm text-secondary">Arbitrage latency: 14ms across 182 luxury boutiques.</div></div><div class="flex items-center gap-space-sm pt-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col truncate"><span class="font-label-md text-label-md text-on-surface truncate">Archie Vance</span><span class="font-body-sm text-body-sm text-on-surface-variant truncate">VIP Concierge Tier</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.2)]"><div class="h-16 w-full px-space-lg flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md flex-1 max-w-xl"><div class="relative w-full"><span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span><input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm pl-10 pr-space-md py-2 rounded-full focus:outline-none focus:ring-1 focus:ring-primary-container placeholder:text-on-surface-variant/60 shadow-[0_0_12px_rgba(0,0,0,0.3)]" placeholder="Search grails, luxury SKUs, fragrance drops, or boutique URL..." type="text"></div></div><div class="flex items-center gap-space-md shrink-0"><div class="hidden md:flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-full"><span class="material-symbols-outlined text-primary-container text-[16px]">radar</span><span class="font-label-sm text-label-sm text-on-surface-variant">LATENCY: <span class="text-on-surface font-semibold">14ms</span></span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface-container-lowest min-h-screen px-space-lg"><div class="flex flex-col w-full pb-space-xl">
+<!-- Top Stat Metrics Bar -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-space-lg"><!-- Stat 1 -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl p-space-md rounded-2xl flex items-center justify-between shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">SKUs Ativos</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-extrabold">148</span>
+<span class="font-body-sm text-body-sm text-primary font-semibold">SKUs</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary shadow-[0_0_12px_rgba(163,230,53,0.15)]">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl p-space-md rounded-2xl flex items-center justify-between shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">Média Alpha</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-extrabold">28.4%</span>
+<span class="font-body-sm text-body-sm text-primary font-semibold">AVG</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary-fixed shadow-[0_0_12px_rgba(163,230,53,0.15)]">
+<span class="material-symbols-outlined text-[20px]">local_fire_department</span>
+</div>
+</div>
+<!-- Stat 3 -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl p-space-md rounded-2xl flex items-center justify-between shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">Lojas Conectadas</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-extrabold">18</span>
+<span class="font-body-sm text-body-sm text-secondary font-semibold">NODES</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant shadow-[0_0_12px_rgba(0,0,0,0.3)]">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+</div>
+</div>
+<!-- Stat 4 -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl p-space-md rounded-2xl flex items-center justify-between shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">Deals 24h</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-primary font-extrabold">34</span>
+<span class="font-body-sm text-body-sm text-primary-container font-semibold">DEALS</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary shadow-[0_0_16px_rgba(163,230,53,0.25)]">
+<span class="material-symbols-outlined text-[20px]">crisis_alert</span>
+</div>
+</div></section>
+<!-- Showcase Workspace: Two Columns (Left: 380px Chrome Extension Preview, Right: Web Console) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- LEFT COLUMN: The 380px Live Chrome Extension Simulator -->
+<div class="lg:col-span-5 xl:col-span-4 flex flex-col items-center">
+<div class="w-full max-w-[400px] flex items-center justify-between px-space-xs mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">extension</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Chrome Extension Popup</span>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-mono font-semibold">380px View</span>
+</div>
+<!-- Extension Physical Enclosure -->
+<div class="w-full max-w-[380px] bg-surface-container-lowest/95 backdrop-blur-2xl rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.7)] flex flex-col">
+<!-- Top Extension Browser Chrome Header -->
+<div class="bg-surface-container-low px-space-md py-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img alt="Elite Bot Logo" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1ULGrM6ZEaqky6PWsre63YxYvsK2IqeiOk5toCwgf0vEefacaN_gUYbzkvXiexgL5fHnxJTuoL3e30IP4G_G3woXGRVoUSALRGwKZGegQOGkqrDwJR2RWvQzh6jy3_OicayQzYzCaqD4zOah7zZ9mVC4IMGf9z9Ayf4R6LZq7ZuJHx5J4EU_-9t-_iGzU8cs-GfY1Gwvh6kzZfkPWv0kgXBFs2Z3OZ7jz67u_1BT2mRm4XTtX7S4dKPaik">
+<div class="flex items-center gap-1.5 bg-surface-container px-2 py-0.5 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-[9px] text-primary tracking-wider uppercase font-bold">SNIPING ACTIVE</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 rounded-full bg-surface-container hover:bg-surface-container-high text-secondary hover:text-on-surface flex items-center justify-center transition-all" title="Bot Configuration">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</button>
+<button class="w-7 h-7 rounded-full bg-surface-container hover:bg-surface-container-high text-secondary hover:text-on-surface flex items-center justify-center transition-all" title="Settings">
+<span class="material-symbols-outlined text-[16px]">settings</span>
+</button>
+</div>
+</div>
+<!-- Popup Body Content -->
+<div class="p-space-md flex flex-col gap-space-md">
+<!-- Product Hero Card -->
+<div class="bg-surface-container-low/90 rounded-xl p-space-md flex gap-space-md items-center relative overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
+<div class="relative w-24 h-24 rounded-lg bg-surface-container-lowest overflow-hidden shrink-0 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A sleek, matte-black luxury perfume bottle named Neon Noir illuminated by vibrant electric neon lime strip lighting along its bevelled edges on an obsidian dark reflective stage, volumetric fog, cinematic commercial photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHXJyPcpjByeODtYZArIERgcd9a8SNipGgUgXa1x61V0Qvmcjt3auPDo6pOvPpU3Rb0OM54aWSaG0xRpqH24yZTr02vqsvbEuuOdWsXb672erPl_kbqhtkXNSMlQj6kEq7DCpSVJgGxEVyt8tkeWF5GkZ552YVTZLuh8Gag6aBC0GYNygyBkMtM2UXnoPW8E8sKufKUhMwo13bh1efjf9zMQkNNRSzw4QFbp2wWM12MJX1ryGszweh">
+<div class="absolute top-1 left-1 bg-surface-container-lowest/80 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] font-bold text-primary tracking-wider">
+                IN STOCK
+              </div>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="inline-flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-[13px] text-on-surface-variant">verified</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium truncate">Found on O Boticário</span>
+</div>
+<h3 class="font-headline-sm text-[15px] leading-tight text-on-surface font-bold truncate">Malbec Ultra Noir EDP</h3>
+<span class="font-body-sm text-[11px] text-secondary mb-2">100ml • High Luxury Grail</span>
+<div class="flex items-baseline gap-2">
+<del class="font-body-sm text-body-sm text-secondary/70">R$ 219,90</del>
+<div class="flex items-baseline">
+<span class="font-headline-lg text-[22px] leading-none text-on-surface font-black tracking-tight">R$ 149,90</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Deal Score Banner -->
+<div class="bg-primary/10 rounded-xl px-space-md py-space-sm flex items-center justify-between shadow-[0_0_16px_rgba(163,230,53,0.1)]"><div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">local_fire_department</span>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Super Deal</span>
+<span class="text-[12px] font-mono text-primary/80">-32% vs Média</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-primary/20 text-primary font-bold px-2 py-0.5 rounded-md">
+9.8
+</span></div>
+<!-- Multi-Store Price Comparison Matrix -->
+<div class="flex flex-col gap-2"><div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Lojas Monitoradas</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">4 ofertas</span>
+</div>
+<!-- Store 1: Best Price -->
+<div class="bg-surface-container rounded-xl p-space-sm flex items-center justify-between shadow-[0_0_16px_rgba(163,230,53,0.12)]">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-[13px] text-on-surface shrink-0">
+OB
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">O Boticário</span>
+<span class="bg-primary/20 text-primary text-[9px] font-bold px-1.5 py-0.5 rounded tracking-wider">MELHOR PREÇO</span>
+</div>
+<span class="font-body-sm text-body-sm text-primary font-bold">R$ 149,90</span>
+</div>
+</div>
+<button class="bg-surface-bright text-on-surface-container hover:bg-white hover:text-surface-container-lowest font-label-md text-label-md px-3.5 py-1.5 rounded-full font-bold transition-all shadow-[0_0_12px_rgba(255,255,255,0.3)] hover:scale-105 active:scale-95 shrink-0 flex items-center gap-1">
+<span class="">Get Deal</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</button>
+</div>
+<!-- Store 2 -->
+<div class="bg-surface-container-low/70 rounded-xl p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center font-bold text-[11px] text-on-surface-variant shrink-0">
+BW
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Beleza na Web</span>
+<span class="font-body-sm text-body-sm text-secondary font-medium">R$ 169,90</span>
+</div>
+</div>
+<a class="font-label-sm text-label-sm text-secondary hover:text-on-surface px-2.5 py-1 rounded-full bg-surface-container hover:bg-surface-container-high transition-all flex items-center gap-1" href="#">
+<span class="">Ver Loja</span>
+<span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div>
+<!-- Store 3 -->
+<div class="bg-surface-container-low/70 rounded-xl p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center font-bold text-[11px] text-on-surface-variant shrink-0">
+ML
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Mercado Livre</span>
+<span class="font-body-sm text-body-sm text-secondary font-medium">R$ 175,00</span>
+</div>
+</div>
+<a class="font-label-sm text-label-sm text-secondary hover:text-on-surface px-2.5 py-1 rounded-full bg-surface-container hover:bg-surface-container-high transition-all flex items-center gap-1" href="#">
+<span class="">Ver Loja</span>
+<span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div>
+<!-- Store 4 -->
+<div class="bg-surface-container-low/70 rounded-xl p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center font-bold text-[11px] text-on-surface-variant shrink-0">
+SP
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Sephora Brasil</span>
+<span class="font-body-sm text-body-sm text-secondary font-medium">R$ 199,00</span>
+</div>
+</div>
+<a class="font-label-sm text-label-sm text-secondary hover:text-on-surface px-2.5 py-1 rounded-full bg-surface-container hover:bg-surface-container-high transition-all flex items-center gap-1" href="#">
+<span class="">Ver Loja</span>
+<span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div></div>
+<!-- Price Alert Creator Widget -->
+<div class="bg-surface-container-low rounded-xl p-space-sm flex flex-col gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.3)]"><div class="flex items-center gap-2">
+<div class="relative flex-1">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 font-label-md text-label-md text-secondary">R$</span>
+<input class="w-full bg-surface-container-lowest text-on-surface font-label-md text-label-md pl-9 pr-3 py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" placeholder="Preço alvo" type="text" value="130,00">
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md font-bold px-3 py-2 rounded-lg flex items-center gap-1 hover:brightness-110 active:scale-95 transition-all shadow-[0_0_12px_rgba(163,230,53,0.3)] shrink-0">
+<span class="">Criar Alerta</span>
+<span class="material-symbols-outlined text-[16px]">notifications</span>
+</button>
+</div></div>
+</div>
+<!-- Popup Footer Bar -->
+<div class="bg-surface-container-low px-space-md py-2.5 flex items-center justify-between text-secondary"><div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="font-body-sm text-[10px] text-on-surface-variant">Atualizado há 2m</span>
+</div>
+<button class="hover:text-primary transition-colors flex items-center" title="Atualizar Preços">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+</button></div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Companion Web Dashboard - Sniper Console & Historical Tracker -->
+<div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-space-lg">
+<!-- Main Action & Console Header Strip -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md bg-surface-container-low/80 backdrop-blur-xl p-space-md rounded-2xl">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">Sniper Command Console</span>
+<span class="bg-surface-container text-primary font-label-sm text-label-sm font-mono px-2 py-0.5 rounded-full">v2.4 Pro</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">Monitoramento em tempo real em hubs de luxo nacionais e globais.</p>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md px-4 py-2 rounded-full flex items-center gap-1.5 transition-all">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span class="">Export CSV</span>
+</button>
+<button class="bg-white hover:bg-surface-bright text-surface-container-lowest font-label-md text-label-md font-bold px-5 py-2 rounded-full flex items-center gap-1.5 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-[16px]">add_link</span>
+<span class="">Track New URL</span>
+</button>
+</div>
+</div>
+<!-- Price History Graph Card (90-Day Telemetry) -->
+<div class="bg-surface-container-low/80 backdrop-blur-xl p-space-lg rounded-2xl flex flex-col gap-space-md shadow-[0_8px_32px_rgba(0,0,0,0.5)]"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">Histórico de Preço — Malbec Ultra Noir EDP</h4>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container p-1 rounded-full">
+<button class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">90 Dias</button>
+<button class="px-3 py-1 rounded-full text-secondary hover:text-on-surface font-label-sm text-label-sm">30 Dias</button>
+<button class="px-3 py-1 rounded-full text-secondary hover:text-on-surface font-label-sm text-label-sm">Tudo</button>
+</div>
+</div>
+<!-- SVG Line/Area Chart -->
+<div class="relative w-full h-56 bg-surface-container-lowest/70 rounded-xl p-space-md flex flex-col justify-between overflow-hidden">
+<!-- Background Gridlines -->
+<div class="absolute inset-x-space-md inset-y-space-md flex flex-col justify-between pointer-events-none opacity-20">
+<div class="w-full h-px bg-on-surface"></div>
+<div class="w-full h-px bg-on-surface"></div>
+<div class="w-full h-px bg-on-surface"></div>
+<div class="w-full h-px bg-on-surface"></div>
+</div>
+<!-- Y-Axis Labels overlay -->
+<div class="absolute left-3 top-3 bottom-3 flex flex-col justify-between text-[10px] font-mono text-secondary pointer-events-none">
+<span class="">R$ 240</span>
+<span class="">R$ 200</span>
+<span class="">R$ 160</span>
+<span class="">R$ 120</span>
+</div>
+<!-- Vector Visual Graphic -->
+<svg class="w-full h-full pt-4 pl-12 pr-4 pb-2" fill="none" preserveAspectRatio="none" viewBox="0 0 600 160">
+<defs>
+<linearGradient id="neonGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#A3E635" stop-opacity="0.35"></stop>
+<stop offset="90%" stop-color="#A3E635" stop-opacity="0.0"></stop>
+</linearGradient>
+</defs>
+<!-- 30-Day Average Benchmark Line -->
+<path d="M 0 65 L 600 65" stroke="#454747" stroke-dasharray="4 4" stroke-width="1.5"></path>
+<!-- Filled Area Curve -->
+<path d="M 0 45 Q 80 50 140 40 T 260 85 T 380 70 T 480 120 T 600 135 L 600 160 L 0 160 Z" fill="url(#neonGradient)"></path>
+<!-- Active Price Line -->
+<path d="M 0 45 Q 80 50 140 40 T 260 85 T 380 70 T 480 120 T 600 135" stroke="#A3E635" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<!-- Key Sniper Points -->
+<circle cx="0" cy="45" fill="#A3E635" r="3"></circle>
+<circle cx="260" cy="85" fill="#A3E635" r="3"></circle>
+<circle cx="480" cy="120" fill="#FFFFFF" r="4"></circle>
+<!-- Current Best Sniper Dot with Pulse Halo -->
+<circle class="animate-ping" cx="600" cy="135" fill="#A3E635" opacity="0.3" r="7"></circle>
+<circle cx="600" cy="135" fill="#A3E635" r="5"></circle>
+</svg>
+<!-- Timeline X-Axis Labels minimalistas -->
+<div class="flex justify-between pl-12 pr-4 text-[10px] font-mono text-secondary pt-1">
+<span class="">-90d (R$ 229)</span>
+<span class="">-60d (R$ 199)</span>
+<span class="">-30d (R$ 189)</span>
+<span class="text-primary font-bold">Hoje: R$ 149,90</span>
+</div>
+</div>
+<!-- Legend / Key Stats Row minimalistas -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm pt-space-xs">
+<div class="bg-surface-container/60 p-2.5 rounded-xl flex flex-col">
+<span class="font-label-sm text-[10px] text-secondary">MÉDIA 30D</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">R$ 189,40</span>
+</div>
+<div class="bg-surface-container/60 p-2.5 rounded-xl flex flex-col">
+<span class="font-label-sm text-[10px] text-secondary">MÁXIMO</span>
+<span class="font-label-sm text-label-md text-error font-semibold">R$ 239,90</span>
+</div>
+<div class="bg-surface-container/60 p-2.5 rounded-xl flex flex-col">
+<span class="font-label-sm text-[10px] text-primary">MÍNIMO HISTÓRICO</span>
+<span class="font-label-md text-label-md text-primary font-bold">R$ 149,90</span>
+</div>
+<div class="bg-surface-container/60 p-2.5 rounded-xl flex flex-col">
+<span class="font-label-sm text-[10px] text-secondary">SPREAD / DELTA</span>
+<span class="font-label-md text-label-md text-tertiary-fixed font-semibold">R$ 49,10</span>
+</div>
+</div></div>
+<!-- Section: Top Trending Sniped Deals -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">trending_up</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">Live Sniped Grails</h4>
+</div>
+<a class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1" href="#">
+<span class="">View all 34 alerts</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter"><!-- Deal 1: Nike Air Max Plus Drift -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl p-space-md rounded-2xl flex flex-col justify-between gap-space-md shadow-[0_8px_24px_rgba(0,0,0,0.4)] group hover:bg-surface-container transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="relative w-full h-36 rounded-xl bg-surface-container-lowest overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Futuristic Nike Air Max Plus Drift triple black silhouette with glowing neon lime details on an obsidian backdrop, dark hyper-detailed luxury sneaker showcase" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLEmbTwXIVWQx-goKlC7JspySRLgHQylZmHR0WeZ7xiHNuNcYxsIt8vv7KcdTowVb0oohA5Yc4kkvb0FdeJplwLcGdklQ_lKkyeZncenUTTOVHd9FUw7ZZXTR1ggc4uj52FZNCtqXbIdZOw7k-W4Teqa9xyy_LveQk-fLaUNXKhQTtjxgkxNRUzVLENqM0Ip2yl7OqkAprh4o8YD_3gpjhvhmj9hb2IQLYpbZSkDgsNczJCrpCFOa4">
+<span class="absolute top-2 left-2 bg-primary/20 backdrop-blur-md text-primary font-label-sm text-[10px] font-extrabold px-2 py-0.5 rounded-full">
+-38%
+</span>
+<span class="absolute top-2 right-2 bg-surface-container-lowest/80 backdrop-blur-md text-on-surface font-label-sm text-[10px] px-2 py-0.5 rounded-full">
+SNKRS
+</span>
+</div>
+<div class="flex flex-col">
+<h5 class="font-headline-sm text-[15px] font-bold text-on-surface truncate">Nike Air Max Plus Drift</h5>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-sm text-[17px] font-black text-on-surface">R$ 749</span>
+<del class="font-body-sm text-body-sm text-secondary/60">R$ 1.199</del>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-primary">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span>
+EXCELLENT
+</span>
+<button class="bg-surface-container-high hover:bg-white hover:text-surface-container-lowest text-on-surface font-label-sm text-[11px] font-bold px-3 py-1.5 rounded-full transition-all">
+Snipe Deal
+</button>
+</div>
+</div>
+<!-- Deal 2: Sauvage Dior Parfum -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl p-space-md rounded-2xl flex flex-col justify-between gap-space-md shadow-[0_8px_24px_rgba(0,0,0,0.4)] group hover:bg-surface-container transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="relative w-full h-36 rounded-xl bg-surface-container-lowest overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Dior Sauvage Parfum midnight blue bottle isolated in studio lighting with faint cyan and lime ambient smoke reflections on glossy wet slate floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3BiQRAxBX0Tb9MEixzapCaQ4pmTl20w88j08KZYj2JOYcsrm9fueKWI3Q9KWJ5WfiKnoTW6uPLaZFN-nHqk_C2h7CmYkvnrBBRwMg17Ek_81b3ceuN472wB7HXr6ih7oar7EavVjLLH-72yxe7-bSMi2zZ6UrGlXjY9U-gBWOuyevnj6XmN9z_3SLzgKtBIu7VXpzKezfaGopfdPK0Qo2A0JD3RyMk31LwVVqNlhNP1Wey-DvQo8F">
+<span class="absolute top-2 left-2 bg-primary/20 backdrop-blur-md text-primary font-label-sm text-[10px] font-extrabold px-2 py-0.5 rounded-full">
+-24%
+</span>
+<span class="absolute top-2 right-2 bg-surface-container-lowest/80 backdrop-blur-md text-on-surface font-label-sm text-[10px] px-2 py-0.5 rounded-full">
+Sephora
+</span>
+</div>
+<div class="flex flex-col">
+<h5 class="font-headline-sm text-[15px] font-bold text-on-surface truncate">Sauvage Dior Parfum</h5>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-sm text-[17px] font-black text-on-surface">R$ 589</span>
+<del class="font-body-sm text-body-sm text-secondary/60">R$ 780</del>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-tertiary-fixed">
+<span class="material-symbols-outlined text-[14px]">thumb_up</span>
+BOM
+</span>
+<button class="bg-surface-container-high hover:bg-white hover:text-surface-container-lowest text-on-surface font-label-sm text-[11px] font-bold px-3 py-1.5 rounded-full transition-all">
+Snipe Deal
+</button>
+</div>
+</div>
+<!-- Deal 3: New Balance 9060 Triple Black -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl p-space-md rounded-2xl flex flex-col justify-between gap-space-md shadow-[0_8px_24px_rgba(0,0,0,0.4)] group hover:bg-surface-container transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="relative w-full h-36 rounded-xl bg-surface-container-lowest overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="New Balance 9060 Triple Black luxury streetwear shoe placed on dark textured asphalt with soft emerald neon edge reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIcO9g4XvEGK8QzbARvCFnFWt1rCAFmSTEk_r5jgftM-0Cf1lvF7IQ8Vu177rQf0QOZT6rfZwXOAG5Ha1brwuT84PMsZwSpkw7TV9vC43aHpAXH0NVV94tViCkjbmK_W-0UFiBGy4EDPcdIs0-TguxadgZ-IbQzIrConHYH7Jun2QBwnW9stNKp7MXRWgC69lF5hlnIq7btxAAjXcDS2lP20BiKrtkAUfLJ7eVgh8-bTN7w2Qa8S8P">
+<span class="absolute top-2 left-2 bg-primary/20 backdrop-blur-md text-primary font-label-sm text-[10px] font-extrabold px-2 py-0.5 rounded-full">
+-18%
+</span>
+<span class="absolute top-2 right-2 bg-surface-container-lowest/80 backdrop-blur-md text-on-surface font-label-sm text-[10px] px-2 py-0.5 rounded-full">
+Farfetch
+</span>
+</div>
+<div class="flex flex-col">
+<h5 class="font-headline-sm text-[15px] font-bold text-on-surface truncate">New Balance 9060 Black</h5>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-sm text-[17px] font-black text-on-surface">R$ 899</span>
+<del class="font-body-sm text-body-sm text-secondary/60">R$ 1.099</del>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-tertiary-fixed">
+<span class="material-symbols-outlined text-[14px]">thumb_up</span>
+BOM
+</span>
+<button class="bg-surface-container-high hover:bg-white hover:text-surface-container-lowest text-on-surface font-label-sm text-[11px] font-bold px-3 py-1.5 rounded-full transition-all">
+Snipe Deal
+</button>
+</div>
+</div></div>
+</div>
+<!-- Store Integrations Quick-Connect Bar & Notification Status -->
+<div class="bg-surface-container-low/80 backdrop-blur-xl p-space-md rounded-2xl flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Lojas Monitoradas</span>
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="bg-surface-container text-on-surface font-label-sm text-[11px] px-2.5 py-1 rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> O Boticário
+</span>
+<span class="bg-surface-container text-on-surface font-label-sm text-[11px] px-2.5 py-1 rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Sephora
+</span>
+<span class="bg-surface-container text-on-surface font-label-sm text-[11px] px-2.5 py-1 rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Nike SNKRS
+</span>
+<span class="bg-surface-container text-on-surface font-label-sm text-[11px] px-2.5 py-1 rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Farfetch
+</span>
+<span class="bg-surface-container text-on-surface font-label-sm text-[11px] px-2.5 py-1 rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Mercado Livre
+</span>
+</div>
+</div>
+<div class="flex items-center gap-2.5 shrink-0 bg-surface-container px-3 py-1.5 rounded-xl">
+<div class="w-7 h-7 rounded-full bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">send</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-[11px] text-on-surface font-bold">Telegram VIP</span>
+<span class="font-body-sm text-[10px] text-primary">Conectado</span>
+</div>
+</div></div>
+</div>
+</div>
+</div></main></div>
+
+</body></html>
