@@ -1,6 +1,6 @@
 import React from 'react';
-import { ExternalLink, CheckCircle2 } from 'lucide-react';
-import { ProductOffer, getMonetizedRedirectUrl } from '../../services/api.ts';
+import { ExternalLink } from 'lucide-react';
+import { ProductOffer, getMonetizedRedirectUrl, openExternalLink } from '../../services/api.ts';
 
 interface StoreComparisonProps {
   offers: ProductOffer[];
@@ -14,6 +14,12 @@ export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers }) => {
       </div>
     );
   }
+
+  const handleOpenStore = (e: React.MouseEvent, offerId: string) => {
+    e.preventDefault();
+    const redirectUrl = getMonetizedRedirectUrl(offerId);
+    openExternalLink(redirectUrl);
+  };
 
   return (
     <div className="space-y-2">
@@ -29,14 +35,13 @@ export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers }) => {
       <div className="space-y-2">
         {offers.map((offer, index) => {
           const isBest = index === 0;
-          const redirectUrl = getMonetizedRedirectUrl(offer.offer_id);
 
           return (
             <div
               key={offer.offer_id || index}
-              className={`p-3 rounded-xl border transition-all js-animate-card flex items-center justify-between gap-3 ${
+              className={`p-3 rounded-xl border transition-all flex items-center justify-between gap-3 ${
                 isBest
-                  ? 'bg-[#1A1C22] border-[#C85A32]/50 shadow-anti-vibe'
+                  ? 'bg-[#1A1C22] border-[#C85A32]/50 shadow-md'
                   : 'bg-[#1A1C22]/60 border-[#282B34] opacity-90 hover:opacity-100'
               }`}
             >
@@ -52,7 +57,7 @@ export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers }) => {
                   )}
                 </div>
                 <p className="text-[10px] text-[#94A3B8]">
-                  Entrega Grátis ou Fulfilled
+                  Entrega Rápida & Link Verificado 302
                 </p>
               </div>
 
@@ -68,19 +73,18 @@ export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers }) => {
                   )}
                 </div>
 
-                <a
-                  href={redirectUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 ${
+                <button
+                  onClick={(e) => handleOpenStore(e, offer.offer_id)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
                     isBest
                       ? 'bg-white text-[#090A0F] hover:bg-[#F3F4F6] shadow-md'
                       : 'bg-[#282B34] text-[#F3F4F6] hover:bg-[#383B44]'
                   }`}
+                  title="Abrir link de oferta em nova aba"
                 >
                   <span>Ir à Loja</span>
                   <ExternalLink className="w-3 h-3" />
-                </a>
+                </button>
               </div>
             </div>
           );
