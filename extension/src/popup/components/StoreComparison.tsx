@@ -47,18 +47,21 @@ export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers, select
               }`}
             >
               <div className="space-y-0.5 flex-1 truncate">
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 flex-wrap">
                   <span className="text-xs font-bold text-[#F3F4F6] truncate">
                     {offer.store_name}
                   </span>
                   {isBest && (
-                    <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-[#C85A32] text-white uppercase tracking-wider">
+                    <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-[#C85A32] text-white uppercase tracking-wider">
                       MENOR PREÇO
                     </span>
                   )}
+                  <span className="text-[9px] font-medium px-1.5 py-0.5 rounded bg-[#22242B] text-[#10B981] border border-[#10B981]/30">
+                    ✓ Link Direto
+                  </span>
                 </div>
-                <p className="text-[10px] text-[#94A3B8]">
-                  Entrega Rápida & Link Verificado 302
+                <p className="text-[10px] text-[#94A3B8] flex items-center gap-1 mt-0.5">
+                  <span>Vendido pela loja • Vai para o produto exato</span>
                 </p>
               </div>
 

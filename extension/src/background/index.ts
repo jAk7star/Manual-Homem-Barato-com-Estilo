@@ -16,10 +16,23 @@ if (typeof chrome !== 'undefined' && chrome.runtime) {
     }
   });
 
-  chrome.runtime.onMessage.addListener((message, _sender, _sendResponse) => {
+  chrome.runtime.onMessage.addListener((message, sender, _sendResponse) => {
     if (message.action === 'OPEN_EXPANDED_VIEW') {
       const expandedUrl = chrome.runtime.getURL('index.html?mode=expanded');
       chrome.tabs.create({ url: expandedUrl });
+      return;
+    }
+
+    if (message.type === 'OPEN_SIDE_PANEL' && sender.tab?.id) {
+      if (chrome.sidePanel && chrome.sidePanel.open) {
+        chrome.sidePanel.open({ tabId: sender.tab.id }).catch(() => {
+          const popupUrl = chrome.runtime.getURL('index.html');
+          chrome.tabs.create({ url: popupUrl });
+        });
+      } else {
+        const popupUrl = chrome.runtime.getURL('index.html');
+        chrome.tabs.create({ url: popupUrl });
+      }
       return;
     }
 
