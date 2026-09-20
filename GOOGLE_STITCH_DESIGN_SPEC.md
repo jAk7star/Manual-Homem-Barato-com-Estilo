@@ -73,16 +73,37 @@ Um único Design System alimenta ambas as superfícies através de adaptação r
 
 ## 🎨 Diretrizes de Design System: "Menswear & Fragrance Editorial"
 
-### 1. Paleta de Cores Nativa do Nicho
+### 1. Três Temas Oficiais do Sistema (`Dark`, `Light Sand`, `Obsidian`)
 
-| Elemento | Cor Hex | Uso / Aplicação |
-|---|---|---|
-| **Fundo Dark Base** | `#121316` | Fundo carvão fosco matte (sem neons e sem estética sci-fi/crypto). |
-| **Fundo Light Sand** | `#F9F8F6` | Off-white sand inspirado em e-commerces de alfaiataria (Aramis / C&A). |
-| **Acento Terracota/Cobre** | `#C85A32` | Destaques de desconto, ofertas imbatíveis e botões primários. |
-| **Acento Âmbar Warm** | `#D97706` | Acordes olfativos amadeirados e alertas de preço médio. |
-| **Superfície de Cards** | `#1A1C22` | Cards planos com borda sutil `1px #282B34`. |
-| **Texto Principal** | `#F3F4F6` | Tipografia límpida e de alta legibilidade em fundos escuros. |
+O **Elite Bot Design System** possui 3 paletas de cores nativas com tipografias e scrollbars especificamente pareadas para cada contexto:
+
+| Tema | Fundo Base | Superfície Card | Acento Primário | Tipografia Pareada | Ícone Seletor |
+|---|---|---|---|---|---|
+| **Dark Charcoal (Padrão)** | `#0e0f12` | `#14151a` | Terracota `#C85A32` | `Inter` + `Space Grotesk` | 🌙 `Moon` |
+| **Light Sand (Aramis & oBoticário)** | `#F7F5F0` | `#FFFFFF` | Cobre `#B84A28` | `Manrope` + `Plus Jakarta Sans` | ☀️ `Sun` |
+| **Obsidian (Telemetria)** | `#0a0b0e` | `#121318` | Esmeralda `#10B981` | `Space Grotesk` + `font-mono` | 💎 `Gem` |
+
+---
+
+### 2. Botões Minimalistas de Ícones para Seleção de Temas
+Em vez de botões com rótulos de texto extensos, os seletores de tema utilizam **botões minimalistas de ícones SVG**:
+- 🌙 **Dark Charcoal:** Alterna para a paleta carvão fosco matte com tipografia `Inter`.
+- ☀️ **Light Sand:** Alterna para a paleta clara sand com tipografia `Manrope` e texto de alto contraste `#1B1B18`.
+- 💎 **Obsidian:** Alterna para a paleta obsidian com foco em telemetria e acento esmeralda.
+
+---
+
+### 3. Scrollbar Minimalista por Tema
+Para evitar o scrollbar nativo grosso do navegador (que polui a interface no Side Panel e Widescreen):
+- **Trilho:** Transparente (`background: transparent`).
+- **Thumb:** Fino (5px) com bordas arredondadas e cor nativa de cada acento (`rgba(200,90,50,0.3)` no Dark, `rgba(184,74,40,0.3)` no Light Sand e `rgba(16,185,129,0.3)` no Obsidian).
+
+---
+
+### 4. Adaptação Fluida de Dimensões (Side Panel vs Widescreen)
+- **Fluidez Nativa:** Não utilizar limites estáticos como `w-[390px]` no `<body>` ou em `<html>`.
+- **Side Panel (~390px):** Empilha os elementos verticalmente em 1 coluna com espaçamento de 8px e scrollbar fino.
+- **Widescreen (Full Window 1200px+):** Expande autonomamente a grade para 12 colunas (`grid-cols-12`) aproveitando a largura da aba do navegador.
 
 ---
 

@@ -3,10 +3,10 @@ import { Header } from './components/Header.tsx';
 import { ProductHero } from './components/ProductHero.tsx';
 import { DealBadge } from './components/DealBadge.tsx';
 import { OlfactoryAccords } from './components/OlfactoryAccords.tsx';
-import { SizeSelector } from './components/SizeSelector.tsx';
 import { StoreComparison } from './components/StoreComparison.tsx';
 import { PriceAlertForm } from './components/PriceAlertForm.tsx';
 import { PriceHistoryChart } from './components/PriceHistoryChart.tsx';
+import { ExpandedDashboard } from './components/ExpandedDashboard.tsx';
 import { searchProducts, ProductDetails, openExternalLink } from '../services/api.ts';
 import { getDetectedProduct } from '../services/storage.ts';
 import { Loader2, Search, ArrowRight, Tag, ExternalLink } from 'lucide-react';
@@ -21,11 +21,14 @@ export const Popup: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Detecta se a página foi aberta em Modo Widescreen / Aba Completa
+  const isExpandedMode = typeof window !== 'undefined' && window.location.search.includes('mode=expanded');
+
   const QUICK_TAGS = [
-    { label: '🔥 Malbec', term: 'Malbec' },
+    { label: '🔥 Asad Lattafa', term: 'Asad' },
+    { label: '🍷 Malbec', term: 'Malbec' },
     { label: '🌊 Kaiak', term: 'Kaiak' },
-    { label: '👞 Sapato Ferracini', term: 'Ferracini' },
-    { label: '👟 Tênis Olympikus', term: 'Olympikus' },
+    { label: '👞 Sapato Democrata', term: 'Democrata' },
     { label: '👕 Polo Renner', term: 'Renner' },
   ];
 
@@ -91,8 +94,13 @@ export const Popup: React.FC = () => {
     handleExecuteSearch('');
   };
 
+  // Se a URL contiver mode=expanded, renderiza o Dashboard Widescreen Completo
+  if (isExpandedMode) {
+    return <ExpandedDashboard product={selectedProduct} />;
+  }
+
   return (
-    <div className="w-[390px] h-[580px] bg-[#121316] text-[#F3F4F6] flex flex-col font-sans border border-[#282B34] overflow-hidden">
+    <div className="w-full max-w-[390px] min-h-screen bg-[#0e0f12] text-[#F3F4F6] flex flex-col font-mono border-r border-[#22242b] overflow-x-hidden">
       <Header
         canGoBack={viewMode === 'detail'}
         onBack={handleBackToList}
@@ -137,11 +145,9 @@ export const Popup: React.FC = () => {
               savingsPercent={20}
             />
 
-            {/* Renderização Contextual: Olfativa vs Tamanhos */}
-            {selectedProduct.accords ? (
+            {/* Exibe notas olfativas se for perfume */}
+            {selectedProduct.accords && (
               <OlfactoryAccords accords={selectedProduct.accords} />
-            ) : (
-              <SizeSelector sizes={selectedProduct.available_sizes} />
             )}
 
             <PriceHistoryChart

@@ -33,7 +33,8 @@
         "https://*.netshoes.com.br/*",
         "https://*.democrata.com.br/*",
         "https://*.ferracini.com.br/*",
-        "https://*.mercadolivre.com.br/*"
+        "https://*.mercadolivre.com.br/*",
+        "https://*.amazon.com.br/*"
       ],
       "js": ["content-script.js"],
       "run_at": "document_idle"

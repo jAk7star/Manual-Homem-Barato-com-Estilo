@@ -3,11 +3,52 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    background-color: #121316;
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0e0f12;
     color: #F3F4F6;
     font-family: 'Inter', sans-serif;
   }
+}
+
+/* ===== SLIM SCROLLBAR PARA CADA TEMA ===== */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(200, 90, 50, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 90, 50, 0.7);
+}
+
+/* Tema Sand Scrollbar */
+.theme-sand ::-webkit-scrollbar-thumb {
+  background: rgba(184, 74, 40, 0.3);
+}
+
+.theme-sand ::-webkit-scrollbar-thumb:hover {
+  background: rgba(184, 74, 40, 0.7);
+}
+
+/* Tema Obsidian Scrollbar */
+.theme-obsidian ::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.3);
+}
+
+.theme-obsidian ::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.7);
 }
 
 /* Custom Anti-Vibe Animations (GPU-Only) */

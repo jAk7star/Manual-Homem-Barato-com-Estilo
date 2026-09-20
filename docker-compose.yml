@@ -51,6 +51,7 @@ services:
       - "5050:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+      - ./database/servers.json:/pgadmin4/servers.json:ro
 
 volumes:
   postgres_data:

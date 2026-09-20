@@ -4,9 +4,10 @@ import { ProductOffer, getMonetizedRedirectUrl, openExternalLink } from '../../s
 
 interface StoreComparisonProps {
   offers: ProductOffer[];
+  selectedSize?: string | number;
 }
 
-export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers }) => {
+export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers, selectedSize }) => {
   if (!offers || offers.length === 0) {
     return (
       <div className="bg-[#1A1C22] p-4 rounded-xl border border-[#282B34] text-center text-xs text-[#94A3B8]">

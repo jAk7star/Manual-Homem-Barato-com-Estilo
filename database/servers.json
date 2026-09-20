@@ -1,0 +1,13 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Elite Bot DB",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "elitebot",
+      "Username": "elitebot_user",
+      "SSLMode": "prefer"
+    }
+  }
+}

@@ -20,12 +20,14 @@ import { DafitiConnector } from './dafiti.ts';
 import { NetshoesConnector } from './netshoes.ts';
 import { DemocrataConnector } from './democrata.ts';
 import { FerraciniConnector } from './ferracini.ts';
+import { AmazonConnector } from './amazon.ts';
 import type { StoreConnector } from './types.ts';
 
 const REGISTRY: ReadonlyMap<string, StoreConnector> = new Map([
   [BelezaNaWebConnector.domain, BelezaNaWebConnector],
   [MercadoLivreConnector.domain, MercadoLivreConnector],
   ['produto.mercadolivre.com.br', MercadoLivreConnector],
+  [AmazonConnector.domain, AmazonConnector],
   [RennerConnector.domain, RennerConnector],
   [HeringConnector.domain, HeringConnector],
   [CeaConnector.domain, CeaConnector],

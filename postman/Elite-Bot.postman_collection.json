@@ -1,0 +1,368 @@
+{
+	"info": {
+		"_postman_id": "elitebot-collection-v1",
+		"name": "Elite Bot — API Test Suite V1",
+		"description": "Suíte completa de testes automatizados para validar a API REST PostgREST antes da integração com a Chrome Extension e Frontend.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "P0 — Leitura do Catálogo",
+			"item": [
+				{
+					"name": "TC-P0-01 — Listar Categorias",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test('Retorna um array de categorias', function () {",
+									"    const body = pm.response.json();",
+									"    pm.expect(body).to.be.an('array').with.length.gte(1);",
+									"});",
+									"pm.test('Armazena category_id no ambiente', function () {",
+									"    const body = pm.response.json();",
+									"    if (body.length > 0) {",
+									"        pm.environment.set('category_id', body[0].id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": ["{{base_url}}"],
+							"path": ["categories"]
+						}
+					}
+				},
+				{
+					"name": "TC-P0-02 — Listar Brands",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test('Retorna um array', function () {",
+									"    pm.expect(pm.response.json()).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/brands",
+							"host": ["{{base_url}}"],
+							"path": ["brands"]
+						}
+					}
+				},
+				{
+					"name": "TC-P0-03 — Listar Lojas Ativas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test('Retorna array de lojas ativas', function () {",
+									"    const body = pm.response.json();",
+									"    pm.expect(body).to.be.an('array').with.length.gte(1);",
+									"    pm.expect(body[0].is_active).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stores?is_active=is.true",
+							"host": ["{{base_url}}"],
+							"path": ["stores"],
+							"query": [
+								{
+									"key": "is_active",
+									"value": "is.true"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "TC-P0-04 — Listar Produtos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test('Armazena product_id no ambiente', function () {",
+									"    const body = pm.response.json();",
+									"    pm.expect(body).to.be.an('array').with.length.gte(1);",
+									"    pm.environment.set('product_id', body[0].id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products?order=name.asc",
+							"host": ["{{base_url}}"],
+							"path": ["products"],
+							"query": [
+								{
+									"key": "order",
+									"value": "name.asc"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "TC-P0-05 — Ofertas Ativas do Produto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test('Retorna ofertas ativas', function () {",
+									"    const body = pm.response.json();",
+									"    pm.expect(body).to.be.an('array').with.length.gte(1);",
+									"    pm.environment.set('offer_id', body[0].id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/offers?product_id=eq.{{product_id}}&is_active=is.true",
+							"host": ["{{base_url}}"],
+							"path": ["offers"],
+							"query": [
+								{
+									"key": "product_id",
+									"value": "eq.{{product_id}}"
+								},
+								{
+									"key": "is_active",
+									"value": "is.true"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "P1 — Views de Inteligência (Extension)",
+			"item": [
+				{
+					"name": "TC-P1-01 — Best Product Offers View",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test('Contém campos obrigatórios para a Extension', function () {",
+									"    const body = pm.response.json();",
+									"    pm.expect(body).to.be.an('array').with.length.gte(1);",
+									"    const first = body[0];",
+									"    pm.expect(first).to.have.property('product_id');",
+									"    pm.expect(first).to.have.property('offer_id');",
+									"    pm.expect(first).to.have.property('store_name');",
+									"    pm.expect(first).to.have.property('total_price');",
+									"    pm.expect(first).to.have.property('product_url');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/best_product_offers?product_id=eq.{{product_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["best_product_offers"],
+							"query": [
+								{
+									"key": "product_id",
+									"value": "eq.{{product_id}}"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "TC-P1-02 — Product Price History View",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test('Retorna array de histórico', function () {",
+									"    pm.expect(pm.response.json()).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/product_price_history?product_id=eq.{{product_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["product_price_history"],
+							"query": [
+								{
+									"key": "product_id",
+									"value": "eq.{{product_id}}"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "TC-P1-03 — Product Deal Summary View",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test('Retorna estrutura do resumo de ofertas', function () {",
+									"    pm.expect(pm.response.json()).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/product_deal_summary?product_id=eq.{{product_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["product_deal_summary"],
+							"query": [
+								{
+									"key": "product_id",
+									"value": "eq.{{product_id}}"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "SEC — Segurança e RLS",
+			"item": [
+				{
+					"name": "TC-SEC-01 — Bloqueio de Escrita sem Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Escrita pública sem autenticação é bloqueada (401/403/42501)', function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 401, 403]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Produto Não Autorizado\",\n  \"slug\": \"produto-nao-autorizado\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": ["{{base_url}}"],
+							"path": ["products"]
+						}
+					}
+				},
+				{
+					"name": "TC-SEC-02 — Leitura Pública do Catálogo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Catálogo público permite leitura sem token JWT (200 OK)', function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": ["{{base_url}}"],
+							"path": ["products"]
+						}
+					}
+				}
+			]
+		}
+	]
+}

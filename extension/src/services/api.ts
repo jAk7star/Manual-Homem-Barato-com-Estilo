@@ -28,13 +28,51 @@ export interface ProductDetails {
   image_url?: string;
   offers: ProductOffer[];
   accords?: { name: string; color: string }[];
-  available_sizes?: number[];
 }
 
 /**
  * Catálogo com URLs Reais e Funcionais de E-commerce Brasileiros
  */
 const MOCK_CATALOG: ProductDetails[] = [
+  {
+    id: 'e5d79b52-0000-4444-8888-000000000000',
+    name: 'Asad Lattafa Eau de Parfum 100ml',
+    slug: 'asad-lattafa-eau-de-parfum-100ml',
+    category_name: 'Perfumaria',
+    image_url: 'https://m.media-amazon.com/images/I/61S-+u3h7vL._AC_SL1500_.jpg',
+    offers: [
+      {
+        product_id: 'e5d79b52-0000-4444-8888-000000000000',
+        product_name: 'Asad Lattafa Eau de Parfum 100ml',
+        current_price: 179.90,
+        original_price: 220.00,
+        store_name: 'Amazon Brasil',
+        store_domain: 'amazon.com.br',
+        affiliate_url: 'https://www.amazon.com.br/s?k=lattafa+asad+100ml',
+        offer_id: '7b4cb760-amazon-asad',
+        classification: 'excellent',
+        score: 97,
+      },
+      {
+        product_id: 'e5d79b52-0000-4444-8888-000000000000',
+        product_name: 'Asad Lattafa Eau de Parfum 100ml',
+        current_price: 189.90,
+        original_price: 220.00,
+        store_name: 'Mercado Livre',
+        store_domain: 'mercadolivre.com.br',
+        affiliate_url: 'https://lista.mercadolivre.com.br/lattafa-asad-100ml',
+        offer_id: '7b4cb760-ml-asad',
+        classification: 'good',
+        score: 91,
+      }
+    ],
+    accords: [
+      { name: 'Especiado Quente', color: '#C85A32' },
+      { name: 'Pimenta & Café', color: '#9A3412' },
+      { name: 'Baunilha / Âmbar', color: '#D97706' },
+      { name: 'Amadeirado Nobre', color: '#78350F' }
+    ]
+  },
   {
     id: 'e5d79b52-1111-4444-8888-000000000001',
     name: 'Malbec Desodorante Colônia 100ml',
@@ -48,7 +86,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 189.90,
         store_name: 'O Boticário',
         store_domain: 'boticario.com.br',
-        affiliate_url: 'https://www.boticario.com.br/malbec-desodorante-colonia-100ml/',
+        affiliate_url: 'https://www.boticario.com.br/busca?q=malbec+desodorante+colonia+100ml',
         offer_id: '7b4cb760-boticario-01',
         classification: 'excellent',
         score: 96,
@@ -60,7 +98,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 189.90,
         store_name: 'Beleza na Web',
         store_domain: 'belezanaweb.com.br',
-        affiliate_url: 'https://www.belezanaweb.com.br/o-boticario-malbec-desodorante-colonia-100ml/',
+        affiliate_url: 'https://www.belezanaweb.com.br/busca?q=malbec+o+boticario+100ml',
         offer_id: '7b4cb760-beleza-01',
         classification: 'good',
         score: 88,
@@ -98,7 +136,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 154.90,
         store_name: 'Natura',
         store_domain: 'natura.com.br',
-        affiliate_url: 'https://www.natura.com.br/p/desodorante-colonia-kaiak-masculino-100-ml/131238',
+        affiliate_url: 'https://www.natura.com.br/busca?q=kaiak+masculino+100ml',
         offer_id: '7b4cb760-natura-01',
         classification: 'excellent',
         score: 94,
@@ -135,7 +173,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         original_price: 359.90,
         store_name: 'Ferracini',
         store_domain: 'ferracini.com.br',
-        affiliate_url: 'https://www.ferracini.com.br/',
+        affiliate_url: 'https://www.ferracini.com.br/busca?q=sapato+social',
         offer_id: '7b4cb760-ferracini-01',
         classification: 'excellent',
         score: 95,
@@ -164,8 +202,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         classification: 'normal',
         score: 82,
       }
-    ],
-    available_sizes: [38, 39, 40, 41, 42, 43, 44]
+    ]
   },
   {
     id: 'e5d79b52-4444-4444-8888-000000000004',
@@ -197,8 +234,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         classification: 'good',
         score: 89,
       }
-    ],
-    available_sizes: [39, 40, 41, 42, 43]
+    ]
   },
   {
     id: 'e5d79b52-5555-4444-8888-000000000005',
@@ -230,8 +266,7 @@ const MOCK_CATALOG: ProductDetails[] = [
         classification: 'good',
         score: 84,
       }
-    ],
-    available_sizes: [38, 40, 42, 44]
+    ]
   }
 ];
 
@@ -239,18 +274,20 @@ const MOCK_CATALOG: ProductDetails[] = [
  * Mapa de Fallback de URLs de Afiliado por Offer ID
  */
 const LIVE_OFFER_URLS: Record<string, string> = {
-  '7b4cb760-boticario-01': 'https://www.boticario.com.br/malbec-desodorante-colonia-100ml/',
-  '7b4cb760-beleza-01': 'https://www.belezanaweb.com.br/o-boticario-malbec-desodorante-colonia-100ml/',
+  '7b4cb760-boticario-01': 'https://www.boticario.com.br/busca?q=malbec+desodorante+colonia+100ml',
+  '7b4cb760-beleza-01': 'https://www.belezanaweb.com.br/busca?q=malbec+o+boticario+100ml',
   '7b4cb760-ml-01': 'https://lista.mercadolivre.com.br/malbec-colonia-100ml',
-  '7b4cb760-natura-01': 'https://www.natura.com.br/p/desodorante-colonia-kaiak-masculino-100-ml/131238',
+  '7b4cb760-natura-01': 'https://www.natura.com.br/busca?q=kaiak+masculino+100ml',
   '7b4cb760-ml-02': 'https://lista.mercadolivre.com.br/kaiak-vital',
-  '7b4cb760-ferracini-01': 'https://www.ferracini.com.br/',
+  '7b4cb760-ferracini-01': 'https://www.ferracini.com.br/busca?q=sapato+social',
   '7b4cb760-dafiti-01': 'https://www.dafiti.com.br/catalog/?q=sapato+social+ferracini',
   '7b4cb760-netshoes-01': 'https://www.netshoes.com.br/busca?q=sapato+social+ferracini',
   '7b4cb760-netshoes-02': 'https://www.netshoes.com.br/busca?q=olympikus+corre+3',
   '7b4cb760-dafiti-02': 'https://www.dafiti.com.br/catalog/?q=olympikus+corre+3',
   '7b4cb760-renner-01': 'https://www.lojasrenner.com.br/busca?Ntt=polo+masculina',
   '7b4cb760-cea-01': 'https://www.cea.com.br/busca?Ntt=polo+masculina',
+  '7b4cb760-amazon-asad': 'https://www.amazon.com.br/s?k=lattafa+asad+100ml',
+  '7b4cb760-ml-asad': 'https://lista.mercadolivre.com.br/lattafa-asad-100ml',
 };
 
 /**
@@ -261,33 +298,40 @@ export async function searchProducts(query: string): Promise<ProductDetails[]> {
   
   try {
     const encoded = encodeURIComponent(query.trim());
-    const response = await fetch(`${API_BASE_URL}/products?select=id,name,slug,categories(name)&or=(slug.ilike.*${encoded}*,name.ilike.*${encoded}*)&limit=10`);
+    const queryParam = normalized
+      ? `&or=(slug.ilike.*${encoded}*,name.ilike.*${encoded}*)`
+      : '';
+    const response = await fetch(`${API_BASE_URL}/products?select=id,name,slug,image_url,categories(name)&order=created_at.desc${queryParam}&limit=10`);
     
     if (response.ok) {
       const products = await response.json();
       if (Array.isArray(products) && products.length > 0) {
         const results: ProductDetails[] = [];
         for (const prod of products) {
-          const offersRes = await fetch(`${API_BASE_URL}/best_product_offers?product_id=eq.${prod.id}&order=current_price.asc`);
+          const offersRes = await fetch(`${API_BASE_URL}/best_product_offers?product_id=eq.${prod.id}&order=price.asc`);
           const offers = offersRes.ok ? await offersRes.json() : [];
+          
+          const catName = prod.categories?.name ?? 'Moda & Perfumaria';
+
           results.push({
             id: prod.id,
             name: prod.name,
             slug: prod.slug,
-            category_name: prod.categories?.name ?? 'Moda & Perfumaria',
+            category_name: catName,
+            image_url: prod.image_url || undefined,
             offers: Array.isArray(offers) ? offers.map(o => ({
               product_id: o.product_id,
               product_name: o.product_name || prod.name,
-              current_price: parseFloat(o.current_price || o.total_price || '0'),
+              current_price: parseFloat(o.price || o.total_price || '0'),
               original_price: o.original_price ? parseFloat(o.original_price) : undefined,
               store_name: o.store_name || 'Loja Parceira',
               store_domain: o.store_domain || '',
               affiliate_url: o.affiliate_url || o.product_url || 'https://www.boticario.com.br/',
-              offer_id: o.id || o.offer_id,
+              offer_id: o.offer_id || o.id,
               classification: o.classification || 'good',
               score: o.score ? parseFloat(o.score) : 85,
             })) : [],
-            accords: prod.name.toLowerCase().includes('malbec') || prod.name.toLowerCase().includes('perfume') || prod.name.toLowerCase().includes('colonia')
+            accords: (prod.name.toLowerCase().includes('malbec') || prod.name.toLowerCase().includes('perfume') || prod.name.toLowerCase().includes('colonia') || prod.name.toLowerCase().includes('asad') || catName.toLowerCase().includes('perfum'))
               ? [
                   { name: 'Amadeirado', color: '#9A3412' },
                   { name: 'Especiado Quente', color: '#C85A32' },
@@ -295,10 +339,14 @@ export async function searchProducts(query: string): Promise<ProductDetails[]> {
                   { name: 'Fresco Cítrico', color: '#0284C7' }
                 ]
               : undefined,
-            available_sizes: [38, 39, 40, 41, 42, 43, 44],
           });
         }
-        return results;
+
+        // Filtra itens com ofertas para que a busca exiba apenas resultados válidos
+        const validResults = results.filter(r => r.offers.length > 0);
+        if (validResults.length > 0) {
+          return validResults;
+        }
       }
     }
   } catch (err) {
@@ -351,10 +399,6 @@ export async function createPriceAlert(productId: string, targetPrice: number): 
  * Gera URL de compra com redirecionamento de afiliados (302 Tracking)
  */
 export function getMonetizedRedirectUrl(offerId: string, campaign = 'extension_popup'): string {
-  // Se for uma offerId com URL real mapeada no dicionário, gera o link 302 direto
-  if (LIVE_OFFER_URLS[offerId]) {
-    return `${REDIRECT_BASE_URL}?offer_id=${encodeURIComponent(offerId)}&fallback=${encodeURIComponent(LIVE_OFFER_URLS[offerId])}`;
-  }
   return `${REDIRECT_BASE_URL}?offer_id=${encodeURIComponent(offerId)}&source=extension&campaign=${campaign}`;
 }
 
@@ -362,7 +406,6 @@ export function getMonetizedRedirectUrl(offerId: string, campaign = 'extension_p
  * Abre links com segurança em nova aba do navegador Chrome
  */
 export function openExternalLink(targetUrl: string): void {
-  // Se for uma oferta direta da loja, abre diretamente
   let finalUrl = targetUrl;
   if (targetUrl.includes('offer_id=')) {
     const match = targetUrl.match(/offer_id=([^&]+)/);
