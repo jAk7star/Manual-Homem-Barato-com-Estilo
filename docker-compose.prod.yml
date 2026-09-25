@@ -39,6 +39,12 @@ services:
       - elitebot-net
     expose:
       - "3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.elitebot-api.rule=Host(`${API_DOMAIN:-api.seusite.com}`)"
+      - "traefik.http.routers.elitebot-api.entrypoints=websecure"
+      - "traefik.http.routers.elitebot-api.tls.certresolver=myresolver"
+      - "traefik.http.services.elitebot-api.loadbalancer.server.port=3000"
 
   # 3. Elite Bot Worker (Crawlers, Ingestion, Redirect 3002 & Smart Alerts)
   worker:
@@ -63,6 +69,12 @@ services:
       - elitebot-net
     expose:
       - "3002"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.elitebot-redirect.rule=Host(`${REDIRECT_DOMAIN:-click.seusite.com}`)"
+      - "traefik.http.routers.elitebot-redirect.entrypoints=websecure"
+      - "traefik.http.routers.elitebot-redirect.tls.certresolver=myresolver"
+      - "traefik.http.services.elitebot-redirect.loadbalancer.server.port=3002"
 
   # 4. OpenClaw Engine (Motor de Scraping & Automation Headless Browser)
   openclaw:
@@ -83,12 +95,20 @@ services:
       - elitebot-net
     expose:
       - "8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.elitebot-openclaw.rule=Host(`${OPENCLAW_DOMAIN:-claw.seusite.com}`)"
+      - "traefik.http.routers.elitebot-openclaw.entrypoints=websecure"
+      - "traefik.http.routers.elitebot-openclaw.tls.certresolver=myresolver"
+      - "traefik.http.services.elitebot-openclaw.loadbalancer.server.port=8080"
 
-  # 5. Caddy Reverse Proxy (SSL Automático com HTTPS Let's Encrypt)
+  # 5. Caddy Reverse Proxy (Necessário APENAS se o Traefik não estiver ativo no Hostinger VPS)
   caddy:
     image: caddy:2-alpine
     container_name: elitebot-caddy-prod
     restart: always
+    profiles:
+      - caddy
     depends_on:
       - postgrest
       - worker
