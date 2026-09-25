@@ -3,9 +3,9 @@
  *
  * Coleta preços de todas as lojas ativas e atualiza ofertas + histórico.
  *
- * Fluxo:
- *   Store registry → connector.scrapeOffer() → PriceData → updateOfferPrice()
- *   → offers (price atualizado) → price_history (novo registro)
+ * Garantia de Links Funcionais:
+ *   - Ofertas com scraping bem sucedido (HTTP 200) -> is_active = TRUE
+ *   - Ofertas com erros 404/410 ou raspagem nula -> is_active = FALSE (removidas das views da API)
  */
 
 import { updateOfferPrice } from '../agents/price-agent.ts';
@@ -19,7 +19,7 @@ interface JobResult {
   status: 'success' | 'error';
   offersFound: number;
   offersUpdated: number;
-  offersCreated: number;
+  offersDeactivated: number;
   errors: number;
   errorDetails: string[];
 }
@@ -31,13 +31,12 @@ export async function jobIngestPrices(): Promise<JobResult> {
     status: 'success',
     offersFound: 0,
     offersUpdated: 0,
-    offersCreated: 0,
+    offersDeactivated: 0,
     errors: 0,
     errorDetails: [],
   };
 
   try {
-    // Busca todas as ofertas ativas incluindo o domínio da loja (correção B3)
     const offersResult = await db.query<{
       id: string;
       product_url: string;
@@ -46,15 +45,13 @@ export async function jobIngestPrices(): Promise<JobResult> {
       `SELECT o.id, o.product_url, s.domain AS store_domain
          FROM offers o
          JOIN stores s ON s.id = o.store_id
-        WHERE o.is_active = TRUE
-          AND s.is_active = TRUE`,
+        WHERE s.is_active = TRUE`,
     );
 
     result.offersFound = offersResult.rows.length;
 
     for (const offer of offersResult.rows) {
       try {
-        // Resolve connector pelo domínio da loja
         const connector = getConnector(offer.store_domain);
         if (connector === null) {
           console.log(
@@ -63,22 +60,32 @@ export async function jobIngestPrices(): Promise<JobResult> {
           continue;
         }
 
-        // Raspa o preço atual via connector
+        // Raspa o preço atual via conector da loja
         const scraped = await connector.scrapeOffer(offer.product_url);
-        if (scraped === null) {
+        
+        if (scraped === null || !scraped.price || scraped.price <= 0) {
+          // Link quebrado ou 404: Desativa a oferta no banco para não aparecer na API
           console.log(
-            `[ingest-prices] skip offer=${offer.id} — connector returned null for ${offer.product_url}`,
+            `[ingest-prices] deactivating dead offer=${offer.id} (404/410/invalid) for ${offer.product_url}`,
           );
+          await updateOfferPrice({
+            offerId: offer.id,
+            price: 0,
+            availability: 'out_of_stock',
+            isActive: false,
+          });
+          result.offersDeactivated++;
           continue;
         }
 
-        // Mapeamento explícito ScrapedOffer → PriceData (campos separados, tipos preservados)
+        // Link Comprovadamente Funcional: Atualiza preço e confirma status ativo no banco
         await updateOfferPrice({
-          offerId:       offer.id,
-          price:         scraped.price,
+          offerId: offer.id,
+          price: scraped.price,
           originalPrice: scraped.originalPrice,
-          shippingPrice: scraped.shippingPrice,   // sempre número (0 quando indisponível)
-          availability:  scraped.availability,    // union type preservado
+          shippingPrice: scraped.shippingPrice,
+          availability: scraped.availability || 'in_stock',
+          isActive: true,
         });
 
         result.offersUpdated++;
@@ -104,6 +111,7 @@ export async function jobIngestPrices(): Promise<JobResult> {
     `duration=${duration}s ` +
     `offers_found=${result.offersFound} ` +
     `offers_updated=${result.offersUpdated} ` +
+    `offers_deactivated=${result.offersDeactivated} ` +
     `errors=${result.errors}`,
   );
 

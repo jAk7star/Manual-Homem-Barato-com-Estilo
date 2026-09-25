@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getVerifierEnabled, setVerifierEnabled } from '../../services/storage.ts';
 
 interface HeaderProps {
   onBack?: () => void;
@@ -7,6 +8,18 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onBack, onGoHome, canGoBack }) => {
+  const [isVerifierEnabled, setIsVerifierEnabled] = useState<boolean>(true);
+
+  useEffect(() => {
+    getVerifierEnabled().then(setIsVerifierEnabled);
+  }, []);
+
+  const handleToggleVerifier = async () => {
+    const nextState = !isVerifierEnabled;
+    setIsVerifierEnabled(nextState);
+    await setVerifierEnabled(nextState);
+  };
+
   const handleOpenExpanded = () => {
     if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
       chrome.runtime.sendMessage({ action: 'OPEN_EXPANDED_VIEW' });
@@ -41,14 +54,35 @@ export const Header: React.FC<HeaderProps> = ({ onBack, onGoHome, canGoBack }) =
         </div>
       </div>
 
-      <button
-        onClick={handleOpenExpanded}
-        className="text-[10px] font-mono text-[#a1a1aa] hover:text-[#c85a32] transition-colors flex items-center gap-1 font-medium cursor-pointer uppercase tracking-widest"
-        title="Abrir análise completa em nova aba"
-      >
-        <span>Análise Completa</span>
-        <span>→</span>
-      </button>
+      <div className="flex items-center gap-3">
+        {/* Toggle Switch de Liga/Desliga do Verificador */}
+        <button
+          onClick={handleToggleVerifier}
+          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold font-mono transition-all border cursor-pointer ${
+            isVerifierEnabled
+              ? 'bg-[#10B981]/15 text-[#10B981] border-[#10B981]/40 hover:bg-[#10B981]/25'
+              : 'bg-[#282B34] text-[#94A3B8] border-[#383B44] hover:bg-[#383B44]'
+          }`}
+          title={isVerifierEnabled ? 'Verificador Ativo (Clique para Desativar)' : 'Verificador Desativado (Clique para Ativar)'}
+        >
+          <span
+            className={`w-2 h-2 rounded-full transition-all ${
+              isVerifierEnabled ? 'bg-[#10B981] shadow-[0_0_8px_#10B981]' : 'bg-[#64748B]'
+            }`}
+          />
+          <span>{isVerifierEnabled ? 'LIGADO' : 'DESLIGADO'}</span>
+        </button>
+
+        <button
+          onClick={handleOpenExpanded}
+          className="text-[10px] font-mono text-[#a1a1aa] hover:text-[#c85a32] transition-colors flex items-center gap-1 font-medium cursor-pointer uppercase tracking-widest"
+          title="Abrir análise completa em nova aba"
+        >
+          <span>Painel</span>
+          <span>→</span>
+        </button>
+      </div>
     </header>
   );
 };
+

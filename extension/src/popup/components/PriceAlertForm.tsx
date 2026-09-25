@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
-import { Bell, Check, Loader2 } from 'lucide-react';
+import { Bell, Check, Loader2, Bookmark } from 'lucide-react';
 import { createPriceAlert } from '../../services/api.ts';
+import { saveProductToCache } from '../../services/storage.ts';
 
 interface PriceAlertFormProps {
   productId: string;
   currentPrice: number;
+  productName?: string;
+  categoryName?: string;
+  imageUrl?: string;
+  affiliateUrl?: string;
 }
 
-export const PriceAlertForm: React.FC<PriceAlertFormProps> = ({ productId, currentPrice }) => {
+export const PriceAlertForm: React.FC<PriceAlertFormProps> = ({
+  productId,
+  currentPrice,
+  productName = 'Produto Selecionado',
+  categoryName,
+  imageUrl,
+  affiliateUrl,
+}) => {
   const [targetPrice, setTargetPrice] = useState<string>(
     (currentPrice * 0.85).toFixed(2)
   );
@@ -20,26 +32,39 @@ export const PriceAlertForm: React.FC<PriceAlertFormProps> = ({ productId, curre
     if (isNaN(priceNum) || priceNum <= 0) return;
 
     setLoading(true);
-    const ok = await createPriceAlert(productId, priceNum);
-    setLoading(false);
 
-    if (ok) {
-      setSuccess(true);
-      setTimeout(() => setSuccess(false), 3000);
-    }
+    // 1. Salva na Persistência Local do Cache do App (chrome.storage.local)
+    await saveProductToCache({
+      id: productId,
+      name: productName,
+      targetPrice: priceNum,
+      currentBestPrice: currentPrice,
+      imageUrl,
+      categoryName,
+      affiliateUrl,
+      savedAt: Date.now(),
+      targetReached: currentPrice <= priceNum,
+    });
+
+    // 2. Sincroniza com a API do PostgreSQL (se online)
+    await createPriceAlert(productId, priceNum);
+
+    setLoading(false);
+    setSuccess(true);
+    setTimeout(() => setSuccess(false), 3000);
   };
 
   return (
     <form onSubmit={handleSubmit} className="bg-[#1A1C22] p-3.5 rounded-xl border border-[#282B34] space-y-2.5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <Bell className="w-3.5 h-3.5 text-[#C85A32]" />
+          <Bookmark className="w-3.5 h-3.5 text-[#C85A32]" />
           <span className="text-[11px] font-bold uppercase tracking-widest text-[#F3F4F6]">
-            CRIAR ALERTA DE PREÇO
+            SALVAR & DEFINIR PREÇO PRETENDIDO
           </span>
         </div>
         <span className="text-[10px] text-[#94A3B8]">
-          WhatsApp & Email
+          Salvo no App + Notificação
         </span>
       </div>
 
@@ -62,17 +87,17 @@ export const PriceAlertForm: React.FC<PriceAlertFormProps> = ({ productId, curre
         <button
           type="submit"
           disabled={loading || success}
-          className="px-4 py-1.5 rounded-xl bg-[#C85A32] hover:bg-[#B8522B] text-white text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-1.5 shrink-0"
+          className="px-4 py-1.5 rounded-xl bg-[#C85A32] hover:bg-[#B8522B] text-white text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-1.5 shrink-0 cursor-pointer"
         >
           {loading ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin" />
           ) : success ? (
             <>
               <Check className="w-3.5 h-3.5 text-white" />
-              <span>Criado!</span>
+              <span>Salvo no App!</span>
             </>
           ) : (
-            <span>Ativar Alerta</span>
+            <span>Salvar & Monitorar</span>
           )}
         </button>
       </div>

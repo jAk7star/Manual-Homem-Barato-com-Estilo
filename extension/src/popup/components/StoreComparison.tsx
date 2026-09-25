@@ -5,9 +5,10 @@ import { ProductOffer, getMonetizedRedirectUrl, openExternalLink } from '../../s
 interface StoreComparisonProps {
   offers: ProductOffer[];
   selectedSize?: string | number;
+  isLiveSyncing?: boolean;
 }
 
-export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers, selectedSize }) => {
+export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers, selectedSize, isLiveSyncing }) => {
   if (!offers || offers.length === 0) {
     return (
       <div className="bg-[#1A1C22] p-4 rounded-xl border border-[#282B34] text-center text-xs text-[#94A3B8]">
@@ -16,9 +17,9 @@ export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers, select
     );
   }
 
-  const handleOpenStore = (e: React.MouseEvent, offerId: string) => {
+  const handleOpenStore = (e: React.MouseEvent, offer: ProductOffer) => {
     e.preventDefault();
-    const redirectUrl = getMonetizedRedirectUrl(offerId);
+    const redirectUrl = getMonetizedRedirectUrl(offer.offer_id, 'extension_popup', offer.affiliate_url);
     openExternalLink(redirectUrl);
   };
 
@@ -32,6 +33,16 @@ export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers, select
           {offers.length} ofertas ativas
         </span>
       </div>
+
+      {isLiveSyncing && (
+        <div className="px-3 py-1.5 rounded-lg bg-[#C85A32]/10 border border-[#C85A32]/30 flex items-center gap-2 text-[10px] text-[#C85A32]">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C85A32] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C85A32]"></span>
+          </span>
+          <span className="font-bold">⚡ Sincronizando preços ao vivo com os sites...</span>
+        </div>
+      )}
 
       <div className="space-y-2">
         {offers.map((offer, index) => {
@@ -78,7 +89,7 @@ export const StoreComparison: React.FC<StoreComparisonProps> = ({ offers, select
                 </div>
 
                 <button
-                  onClick={(e) => handleOpenStore(e, offer.offer_id)}
+                  onClick={(e) => handleOpenStore(e, offer)}
                   className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
                     isBest
                       ? 'bg-white text-[#090A0F] hover:bg-[#F3F4F6] shadow-md'

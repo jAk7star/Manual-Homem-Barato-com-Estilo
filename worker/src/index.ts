@@ -17,6 +17,7 @@ import { jobIngestPrices }   from './jobs/job-ingest-prices.ts';
 import { jobMatchProducts }  from './jobs/job-match-products.ts';
 import { jobCalculateDeals } from './jobs/job-calculate-deals.ts';
 import { jobProcessAlerts }  from './jobs/job-process-alerts.ts';
+import { jobIngestSitemaps } from './jobs/job-ingest-sitemaps.ts';
 import { startRedirectServer } from './server/redirect-server.ts';
 import { db }                from './database/client.ts';
 
@@ -54,7 +55,6 @@ async function main() {
   // JOB-001 — a cada 30 minutos
   schedule('ingest-prices',   '*/30 * * * *', jobIngestPrices);
 
-
   // JOB-002 — a cada hora (no minuto 5)
   schedule('match-products',  '5 * * * *',    jobMatchProducts);
 
@@ -64,6 +64,9 @@ async function main() {
   // JOB-004 — a cada 15 minutos
   schedule('process-alerts',  '*/15 * * * *', jobProcessAlerts);
 
+  // JOB-005 — a cada 12 horas (no minuto 0)
+  schedule('ingest-sitemaps', '0 */12 * * *', jobIngestSitemaps);
+
   console.log('[worker] all jobs scheduled — running');
 }
 
@@ -71,3 +74,4 @@ main().catch((err) => {
   console.error('[worker] fatal startup error', err);
   process.exit(1);
 });
+

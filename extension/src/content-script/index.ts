@@ -3,7 +3,16 @@
  * Injetado automaticamente nas páginas de e-commerce parceiras.
  */
 
-import { setDetectedProduct } from '../services/storage.ts';
+/**
+ * Chrome Storage Inline Wrapper para Content Script
+ */
+function setDetectedProduct(data: { title: string; price?: number; url: string; domain: string; updatedAt: number }): void {
+  if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+    chrome.storage.local.set({ activeProduct: data });
+  } else {
+    localStorage.setItem('activeProduct', JSON.stringify(data));
+  }
+}
 
 function injectFloatingWidget(productTitle: string, currentPrice?: number) {
   if (document.getElementById('elitebot-shadow-root')) return;
@@ -90,13 +99,14 @@ function injectFloatingWidget(productTitle: string, currentPrice?: number) {
     }
   `;
 
+  const priceText = currentPrice ? ` R$ ${currentPrice.toFixed(2)}` : '';
   const widget = document.createElement('div');
   widget.className = 'eb-pill';
   widget.innerHTML = `
     <div class="eb-icon">EB</div>
     <div class="eb-text">
       <span class="eb-title">Elite Bot • Guia do Homem Barato</span>
-      <span class="eb-sub">Menor Preço Verificado em Lojas Parceiras</span>
+      <span class="eb-sub">Menor Preço Verificado: ${priceText}</span>
     </div>
     <button class="eb-close" title="Fechar alerta">&times;</button>
   `;
@@ -117,8 +127,141 @@ function injectFloatingWidget(productTitle: string, currentPrice?: number) {
   document.body.appendChild(container);
 }
 
+/**
+ * Normaliza URLs removendo parâmetros de rastreamento (UTM, gclid, ref, etc.)
+ */
+export function normalizeUrl(rawUrl: string): string {
+  try {
+    const parsed = new URL(rawUrl);
+    const trackingParams = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_term',
+      'utm_content',
+      'gclid',
+      'fbclid',
+      'ref',
+      'affiliate_id',
+      'tag',
+    ];
+    trackingParams.forEach((param) => parsed.searchParams.delete(param));
+    const cleanSearch = parsed.searchParams.toString();
+    return `${parsed.origin}${parsed.pathname}${cleanSearch ? `?${cleanSearch}` : ''}`;
+  } catch {
+    return rawUrl;
+  }
+}
+
+/**
+ * Extrator Isolado por Card de Produto
+ * Evita a dessincronização de arrays iterando estritamente dentro de cada container (.product-card)
+ */
+export interface ScrapedCardProduct {
+  url: string;
+  price: number;
+  title?: string;
+}
+
+export function extractProductsFromCardContainers(
+  cardSelector: string = '.product-card, .ui-search-result__wrapper, [data-product-id], .product-item',
+  linkSelector: string = 'a.product-link, a.ui-search-link, a[href*="/p/"], a[href*="/produto/"]',
+  priceSelector: string = '.price-tag, .price, .sales-price, .andes-money-amount'
+): ScrapedCardProduct[] {
+  const cards = document.querySelectorAll(cardSelector);
+  const scraped: ScrapedCardProduct[] = [];
+
+  cards.forEach((card) => {
+    const linkNode = card.querySelector<HTMLAnchorElement>(linkSelector);
+    const priceNode = card.querySelector<HTMLElement>(priceSelector);
+
+    if (linkNode && linkNode.href && priceNode && priceNode.innerText) {
+      const rawPrice = priceNode.innerText.replace(/[^\d,.]/g, '').replace(',', '.');
+      const parsedPrice = parseFloat(rawPrice);
+
+      if (!isNaN(parsedPrice) && parsedPrice > 0) {
+        scraped.push({
+          url: normalizeUrl(linkNode.href),
+          price: parsedPrice,
+          title: linkNode.title || linkNode.innerText.trim() || undefined,
+        });
+      }
+    }
+  });
+
+  return scraped;
+}
+
+/**
+ * Extrator Robusto com Protocolo Anti-Falso-Positivo para Preços em Páginas de Detalhe (PDP)
+ * Desconsidera expressamente preços originais riscados (<s>, <del>, .line-through, .original-price)
+ */
+function extractPriceFromDOM(): number | undefined {
+  // 1. Mercado Livre: Prioridade Máxima para o Preço Promocional Vigente (.ui-pdp-price__second-line)
+  const mlSecondLine = document.querySelector('.ui-pdp-price__second-line');
+  if (mlSecondLine) {
+    const fraction = mlSecondLine.querySelector('.andes-money-amount__fraction')?.textContent?.replace(/\./g, '');
+    const cents = mlSecondLine.querySelector('.andes-money-amount__cents')?.textContent || '00';
+    if (fraction) {
+      const parsed = parseFloat(`${fraction}.${cents}`);
+      if (!isNaN(parsed) && parsed > 0) return parsed;
+    }
+  }
+
+  // 2. Mercado Livre Fallback: Elemento de preço que NÃO esteja dentro de 's' ou 'del' ou '.ui-pdp-price__original-value'
+  const mlActivePricePart = document.querySelector(
+    '.ui-pdp-price__part:not(s *):not(del *):not(.ui-pdp-price__original-value *):not(.ui-pdp-price__part--original *)'
+  );
+  if (mlActivePricePart) {
+    const fraction = mlActivePricePart.querySelector('.andes-money-amount__fraction')?.textContent?.replace(/\./g, '');
+    const cents = mlActivePricePart.querySelector('.andes-money-amount__cents')?.textContent || '00';
+    if (fraction) {
+      const parsed = parseFloat(`${fraction}.${cents}`);
+      if (!isNaN(parsed) && parsed > 0) return parsed;
+    }
+  }
+
+  // 3. Meta OpenGraph price (somente se maior que zero)
+  const ogPrice =
+    document.querySelector('meta[property="og:price:amount"]')?.getAttribute('content') ||
+    document.querySelector('meta[property="product:price:amount"]')?.getAttribute('content');
+  if (ogPrice && !isNaN(parseFloat(ogPrice))) {
+    const parsed = parseFloat(ogPrice);
+    if (parsed > 0) return parsed;
+  }
+
+  // 4. Elementos com itemprop="price" ou value desconsiderando elementos riscados
+  const itempropEl = document.querySelector('[itemprop="price"]:not(s *):not(del *):not(.line-through *)');
+  if (itempropEl) {
+    const content = itempropEl.getAttribute('content') || itempropEl.getAttribute('value') || itempropEl.textContent;
+    if (content) {
+      const raw = content.replace(/[^\d,.]/g, '').replace(',', '.');
+      const parsed = parseFloat(raw);
+      if (!isNaN(parsed) && parsed > 0) return parsed;
+    }
+  }
+
+  // 5. Fallback genérico de classes CSS de preço focado exclusivamente na oferta ativa
+  const priceEls = document.querySelectorAll(
+    '.sales-price, .best-price, .spot-price, .price-tag-fraction, .product-price, .skuBestPrice'
+  );
+  for (const el of Array.from(priceEls)) {
+    if (el.closest('s, del, .line-through, .original-price, .old-price, .ui-pdp-price__original-value')) {
+      continue; // Ignora preços cortados antigos
+    }
+    if (el.textContent) {
+      const raw = el.textContent.replace(/[^\d,.]/g, '').replace(',', '.');
+      const parsed = parseFloat(raw);
+      if (!isNaN(parsed) && parsed > 0) return parsed;
+    }
+  }
+
+  return undefined;
+}
+
+
 function extractProductContext() {
-  const url = window.location.href;
+  const url = normalizeUrl(window.location.href);
   const domain = window.location.hostname.replace(/^www\./, '');
 
   // Título da Página / Produto
@@ -127,11 +270,8 @@ function extractProductContext() {
     document.querySelector('h1')?.textContent?.trim() ||
     document.title;
 
-  // Preço da Página
-  const priceMeta =
-    document.querySelector('meta[property="og:price:amount"]')?.getAttribute('content') ||
-    document.querySelector('meta[property="product:price:amount"]')?.getAttribute('content');
-  const price = priceMeta ? parseFloat(priceMeta) : undefined;
+  // Extração precisa do preço do DOM
+  const price = extractPriceFromDOM();
 
   const productContext = {
     title: titleMeta,
@@ -158,10 +298,56 @@ function extractProductContext() {
   }
 }
 
-// Executa na carga da página
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  extractProductContext();
-} else {
-  window.addEventListener('DOMContentLoaded', extractProductContext);
+function checkAndExtractProductContext() {
+  if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+    chrome.storage.local.get('verifierEnabled', (res) => {
+      if (res.verifierEnabled === false) {
+        document.getElementById('elitebot-shadow-root')?.remove();
+        return;
+      }
+      extractProductContext();
+    });
+  } else {
+    const raw = localStorage.getItem('verifierEnabled');
+    if (raw !== null && JSON.parse(raw) === false) {
+      document.getElementById('elitebot-shadow-root')?.remove();
+      return;
+    }
+    extractProductContext();
+  }
 }
+
+// Escuta mudanças de configuração em tempo real no Chrome Storage (Liga / Desliga)
+if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.onChanged) {
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName === 'local' && changes.verifierEnabled) {
+      if (changes.verifierEnabled.newValue === false) {
+        document.getElementById('elitebot-shadow-root')?.remove();
+      } else {
+        checkAndExtractProductContext();
+      }
+    }
+  });
+}
+
+// Observador DOM para capturar preços dinâmicos injetados por React/NextJS (MutationObserver)
+let mutationTimeout: number | undefined;
+const observer = new MutationObserver(() => {
+  if (mutationTimeout) window.clearTimeout(mutationTimeout);
+  mutationTimeout = window.setTimeout(() => {
+    checkAndExtractProductContext();
+  }, 500);
+});
+
+// Executa na carga da página e inicia o MutationObserver
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  checkAndExtractProductContext();
+  observer.observe(document.body, { childList: true, subtree: true });
+} else {
+  window.addEventListener('DOMContentLoaded', () => {
+    checkAndExtractProductContext();
+    observer.observe(document.body, { childList: true, subtree: true });
+  });
+}
+
 

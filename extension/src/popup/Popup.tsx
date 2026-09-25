@@ -6,39 +6,70 @@ import { OlfactoryAccords } from './components/OlfactoryAccords.tsx';
 import { StoreComparison } from './components/StoreComparison.tsx';
 import { PriceAlertForm } from './components/PriceAlertForm.tsx';
 import { PriceHistoryChart } from './components/PriceHistoryChart.tsx';
+import { SavedProductsList } from './components/SavedProductsList.tsx';
 import { ExpandedDashboard } from './components/ExpandedDashboard.tsx';
-import { searchProducts, ProductDetails, openExternalLink } from '../services/api.ts';
+import {
+  searchProducts,
+  matchProductContext,
+  fetchLiveOffersFromWeb,
+  ProductDetails,
+  ProductOffer,
+  openExternalLink,
+} from '../services/api.ts';
 import { getDetectedProduct } from '../services/storage.ts';
-import { Loader2, Search, ArrowRight, Tag, ExternalLink } from 'lucide-react';
+import {
+  Loader2,
+  Search,
+  ArrowRight,
+  BookmarkCheck,
+  ShieldAlert,
+  Compass,
+  ExternalLink,
+} from 'lucide-react';
 import '../styles/main.css';
 
-type ViewMode = 'list' | 'detail';
+type ViewMode = 'list' | 'detail' | 'saved' | 'out_of_scope';
 
 export const Popup: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [searchResults, setSearchResults] = useState<ProductDetails[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<ProductDetails | null>(null);
+  const [unmatchedTitle, setUnmatchedTitle] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLiveSyncing, setIsLiveSyncing] = useState<boolean>(false);
 
   // Detecta se a página foi aberta em Modo Widescreen / Aba Completa
-  const isExpandedMode = typeof window !== 'undefined' && window.location.search.includes('mode=expanded');
+  const isExpandedMode =
+    typeof window !== 'undefined' && window.location.search.includes('mode=expanded');
 
-  const QUICK_TAGS = [
-    { label: '🔥 Asad Lattafa', term: 'Asad' },
-    { label: '🍷 Malbec', term: 'Malbec' },
-    { label: '🌊 Kaiak', term: 'Kaiak' },
-    { label: '👞 Sapato Democrata', term: 'Democrata' },
-    { label: '👕 Polo Renner', term: 'Renner' },
-  ];
+  // Dispara a Raspagem Ao Vivo das Lojas Parceiras via Worker Microservice (/api/live-compare)
+  useEffect(() => {
+    if (selectedProduct && selectedProduct.id && !selectedProduct.id.includes('mock')) {
+      setIsLiveSyncing(true);
+      fetchLiveOffersFromWeb(selectedProduct.id)
+        .then((liveOffers: ProductOffer[]) => {
+          if (liveOffers && liveOffers.length > 0) {
+            setSelectedProduct((prev) => {
+              if (!prev) return null;
+              return {
+                ...prev,
+                offers: liveOffers,
+              };
+            });
+          }
+        })
+        .catch((err: unknown) => console.warn('[Popup Live Compare Error]', err))
+        .finally(() => setIsLiveSyncing(false));
+    }
+  }, [selectedProduct?.id]);
 
   const handleExecuteSearch = async (query: string) => {
     setLoading(true);
     setSearchTerm(query);
     const results = await searchProducts(query);
     setSearchResults(results);
-    
-    // Se a busca retornar apenas 1 resultado direto, entra na página do produto
+
     if (results.length === 1 && query.trim() !== '') {
       setSelectedProduct(results[0]);
       setViewMode('detail');
@@ -52,23 +83,79 @@ export const Popup: React.FC = () => {
     async function init() {
       setLoading(true);
       const active = await getDetectedProduct();
-      if (active && active.title) {
-        const results = await searchProducts(active.title);
-        if (results.length > 0) {
-          setSearchResults(results);
-          setSelectedProduct(results[0]);
+
+      if (active && active.title && active.title.length > 3) {
+        // Envia para o backend RPC para averiguação estrita de contexto
+        let matched = await matchProductContext({
+          title: active.title,
+          domain: active.domain,
+        });
+
+        if (matched) {
+          // Sincroniza em tempo real o preço extraído do DOM na oferta da loja ativa
+          if (active.domain && active.price && active.price > 0) {
+            const offerIdx = matched.offers.findIndex(
+              (o) => o.store_domain.includes(active.domain) || active.domain.includes(o.store_domain)
+            );
+            if (offerIdx >= 0) {
+              matched.offers[offerIdx].current_price = active.price;
+              matched.offers.sort((a, b) => a.current_price - b.current_price);
+            }
+          }
+
+          setSelectedProduct(matched);
           setViewMode('detail');
+          setLoading(false);
+          return;
+        } else if (active.price && active.price > 0) {
+          // Produto capturado da página atual que ainda não possui catálogo multi-loja pré-cadastrado
+          const liveProduct: ProductDetails = {
+            id: active.url || 'live-item',
+            name: active.title,
+            slug: active.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-'),
+            category_name: 'Produto da Página Atual',
+            offers: [
+              {
+                product_id: active.url || 'live-item',
+                product_name: active.title,
+                current_price: active.price,
+                store_name: active.domain.includes('mercadolivre')
+                  ? 'Mercado Livre'
+                  : active.domain.includes('boticario')
+                  ? 'O Boticário'
+                  : active.domain.includes('amazon')
+                  ? 'Amazon Brasil'
+                  : active.domain,
+                store_domain: active.domain,
+                affiliate_url: active.url,
+                offer_id: active.url,
+                classification: 'excellent',
+                score: 98,
+              }
+            ],
+          };
+
+          setSelectedProduct(liveProduct);
+          setViewMode('detail');
+          setLoading(false);
+          return;
+        } else {
+          // Produto fora do escopo ou sem preço extraído no DOM
+          setUnmatchedTitle(active.title);
+          setViewMode('out_of_scope');
           setLoading(false);
           return;
         }
       }
-      
-      // Inicializa com catálogo padrão
+
+      // Se não há página ativa detectada, abre busca/lista de catálogo
       const initial = await searchProducts('');
       setSearchResults(initial);
       if (initial.length > 0) {
         setSelectedProduct(initial[0]);
         setViewMode('detail');
+      } else {
+        setViewMode('list');
       }
       setLoading(false);
     }
@@ -85,10 +172,6 @@ export const Popup: React.FC = () => {
     setViewMode('detail');
   };
 
-  const handleBackToList = () => {
-    setViewMode('list');
-  };
-
   const handleGoHome = () => {
     setSearchTerm('');
     handleExecuteSearch('');
@@ -102,41 +185,102 @@ export const Popup: React.FC = () => {
   return (
     <div className="w-full max-w-[390px] min-h-screen bg-[#0e0f12] text-[#F3F4F6] flex flex-col font-mono border-r border-[#22242b] overflow-x-hidden">
       <Header
-        canGoBack={viewMode === 'detail'}
-        onBack={handleBackToList}
+        canGoBack={viewMode === 'detail' || viewMode === 'saved'}
+        onBack={() => setViewMode('list')}
         onGoHome={handleGoHome}
       />
 
-      {/* Barra de Busca Minimalista */}
-      <div className="px-3.5 py-2.5 bg-[#14151a] border-b border-[#22242b] shrink-0">
-        <form onSubmit={handleSearchSubmit} className="flex gap-2">
-          <div className="flex-1 flex items-center bg-[#0e0f12] border border-[#27272a] rounded px-3 py-1.5 text-xs focus-within:border-[#c85a32]">
-            <Search className="w-3.5 h-3.5 text-[#71717a] mr-2 shrink-0" />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Buscar acorde, marca ou sapato..."
-              className="bg-transparent border-none p-0 text-xs text-white placeholder-[#52525b] focus:outline-none w-full font-mono"
-            />
-          </div>
-          <button
-            type="submit"
-            className="px-3 py-1.5 rounded bg-[#c85a32] hover:bg-[#b54f2a] text-white text-xs font-mono font-medium transition-colors"
-          >
-            Buscar
-          </button>
-        </form>
+      {/* Tabs de Navegação Principal */}
+      <div className="flex border-b border-[#22242b] bg-[#14151a] shrink-0 text-xs font-bold">
+        <button
+          onClick={() => setViewMode(selectedProduct ? 'detail' : 'list')}
+          className={`flex-1 py-2.5 text-center transition-colors border-b-2 flex items-center justify-center gap-1.5 cursor-pointer ${
+            viewMode === 'detail' || viewMode === 'list'
+              ? 'border-[#C85A32] text-[#C85A32] bg-[#1A1C22]'
+              : 'border-transparent text-[#94A3B8] hover:text-white'
+          }`}
+        >
+          <Compass className="w-3.5 h-3.5" />
+          <span>Comparador</span>
+        </button>
+
+        <button
+          onClick={() => setViewMode('saved')}
+          className={`flex-1 py-2.5 text-center transition-colors border-b-2 flex items-center justify-center gap-1.5 cursor-pointer ${
+            viewMode === 'saved'
+              ? 'border-[#C85A32] text-[#C85A32] bg-[#1A1C22]'
+              : 'border-transparent text-[#94A3B8] hover:text-white'
+          }`}
+        >
+          <BookmarkCheck className="w-3.5 h-3.5" />
+          <span>Meus Salvos (Cache)</span>
+        </button>
       </div>
+
+      {/* Barra de Busca Minimalista */}
+      {viewMode !== 'saved' && (
+        <div className="px-3.5 py-2.5 bg-[#14151a] border-b border-[#22242b] shrink-0">
+          <form onSubmit={handleSearchSubmit} className="flex gap-2">
+            <div className="flex-1 flex items-center bg-[#0e0f12] border border-[#27272a] rounded px-3 py-1.5 text-xs focus-within:border-[#c85a32]">
+              <Search className="w-3.5 h-3.5 text-[#71717a] mr-2 shrink-0" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Buscar produto, marca ou sapato..."
+                className="bg-transparent border-none p-0 text-xs text-white placeholder-[#52525b] focus:outline-none w-full font-mono"
+              />
+            </div>
+            <button
+              type="submit"
+              className="px-3 py-1.5 rounded bg-[#c85a32] hover:bg-[#b54f2a] text-white text-xs font-mono font-medium transition-colors"
+            >
+              Buscar
+            </button>
+          </form>
+        </div>
+      )}
 
       {/* Conteúdo Principal com Scroll Interno */}
       <div className="flex-1 overflow-y-auto p-3.5 space-y-3.5 scrollbar-thin">
         {loading ? (
           <div className="py-20 flex flex-col items-center justify-center gap-2 text-[#94A3B8]">
             <Loader2 className="w-6 h-6 animate-spin text-[#C85A32]" />
-            <span className="text-xs font-semibold">Consultando 11 lojas parceiras...</span>
+            <span className="text-xs font-semibold">Averiguando contexto da página...</span>
           </div>
+        ) : viewMode === 'out_of_scope' ? (
+          /* Estado Neutro: Produto Fora do Escopo */
+          <div className="py-8 px-4 bg-[#14151A] rounded-2xl border border-[#22242B] text-center space-y-4">
+            <div className="w-12 h-12 rounded-full bg-[#1A1C22] border border-[#C85A32]/40 mx-auto flex items-center justify-center text-[#C85A32]">
+              <ShieldAlert className="w-6 h-6" />
+            </div>
+
+            <div className="space-y-1.5">
+              <h3 className="text-sm font-bold text-[#F3F4F6]">
+                Produto Fora do Escopo Monitorado
+              </h3>
+              <p className="text-xs text-[#94A3B8] leading-relaxed">
+                A página atual (<strong className="text-white">"{unmatchedTitle}"</strong>) não pertence às categorias monitoradas pelo Elite-Bot (Perfumes, Moda, Grooming e Calçados).
+              </p>
+            </div>
+
+            <div className="p-3 rounded-xl bg-[#1A1C22] border border-[#262833] text-[11px] text-[#94A3B8] text-left space-y-1">
+              <span className="text-[#C85A32] font-bold block">✓ Garantia de Coerência</span>
+              <p>O Elite-Bot não exibe dados ou acordes olfativos forçados para produtos fora de nosso catálogo de inteligência.</p>
+            </div>
+
+            <button
+              onClick={() => handleExecuteSearch('')}
+              className="w-full py-2.5 rounded-xl bg-[#C85A32] hover:bg-[#9A3412] text-white text-xs font-bold transition-colors cursor-pointer"
+            >
+              Explorar Catálogo em Destaque
+            </button>
+          </div>
+        ) : viewMode === 'saved' ? (
+          /* Visão da Lista de Salvos no Cache Local */
+          <SavedProductsList />
         ) : viewMode === 'detail' && selectedProduct ? (
+          /* Visão de Detalhes do Produto */
           <div className="space-y-3">
             <ProductHero product={selectedProduct} />
 
@@ -145,22 +289,26 @@ export const Popup: React.FC = () => {
               savingsPercent={20}
             />
 
-            {/* Exibe notas olfativas se for perfume */}
+            {/* Exibe notas olfativas APENAS se for perfume */}
             {selectedProduct.accords && (
               <OlfactoryAccords accords={selectedProduct.accords} />
             )}
 
             <PriceHistoryChart
-              currentPrice={selectedProduct.offers[0]?.current_price || 149.90}
-              lowestPrice={139.90}
+              currentPrice={selectedProduct.offers[0]?.current_price || 149.9}
+              lowestPrice={139.9}
               timeframe="180 Dias"
             />
 
-            <StoreComparison offers={selectedProduct.offers} />
+            <StoreComparison offers={selectedProduct.offers} isLiveSyncing={isLiveSyncing} />
 
             <PriceAlertForm
               productId={selectedProduct.id}
-              currentPrice={selectedProduct.offers[0]?.current_price || 149.90}
+              currentPrice={selectedProduct.offers[0]?.current_price || 149.9}
+              productName={selectedProduct.name}
+              categoryName={selectedProduct.category_name}
+              imageUrl={selectedProduct.image_url}
+              affiliateUrl={selectedProduct.offers[0]?.affiliate_url}
             />
           </div>
         ) : (
@@ -181,7 +329,7 @@ export const Popup: React.FC = () => {
                   Nenhum produto encontrado para "{searchTerm}"
                 </p>
                 <p className="text-[10px] text-[#94A3B8]">
-                  Tente pesquisar por Malbec, Kaiak, Sapato, Tênis, O Boticário ou Renner.
+                  Tente pesquisar por Malbec, Kaiak, Sapato, Tênis ou Renner.
                 </p>
               </div>
             ) : (
@@ -206,7 +354,10 @@ export const Popup: React.FC = () => {
                             {item.name}
                           </h3>
                           <p className="text-[10px] text-[#94A3B8]">
-                            Melhor loja: <strong className="text-[#E5E7EB]">{best?.store_name || 'Loja Parceira'}</strong>
+                            Melhor loja:{' '}
+                            <strong className="text-[#E5E7EB]">
+                              {best?.store_name || 'Loja Parceira'}
+                            </strong>
                           </p>
                         </div>
                       </div>
@@ -234,7 +385,7 @@ export const Popup: React.FC = () => {
           onClick={() => openExternalLink('http://localhost:3002/r')}
           className="text-[#C85A32] font-semibold hover:underline flex items-center gap-1 cursor-pointer"
         >
-          <span>Links Monetizados 302</span>
+          <span>Links Afiliados 302</span>
           <ExternalLink className="w-2.5 h-2.5" />
         </button>
       </footer>

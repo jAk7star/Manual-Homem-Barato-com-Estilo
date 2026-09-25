@@ -1,0 +1,16 @@
+# Caddyfile — Production reverse proxy for Elite Bot & OpenClaw on Hostinger VPS
+
+# Subdomínio da API (PostgREST)
+{$API_DOMAIN:api.seu-dominio.com} {
+    reverse_proxy postgrest:3000
+}
+
+# Subdomínio de Monetização / Redirects HTTP 302
+{$REDIRECT_DOMAIN:click.seu-dominio.com} {
+    reverse_proxy worker:3002
+}
+
+# Subdomínio do Dashboard / Motor OpenClaw (opcional)
+{$OPENCLAW_DOMAIN:claw.seu-dominio.com} {
+    reverse_proxy openclaw:8080
+}
